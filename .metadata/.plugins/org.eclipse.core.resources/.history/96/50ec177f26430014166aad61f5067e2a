@@ -1,0 +1,8 @@
+package chessTest;
+
+public class Board {
+	public Piece[][] pieces;
+	public Tile[][] tiles;
+
+
+}

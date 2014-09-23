@@ -1,0 +1,7 @@
+package chessTest.rules;
+
+public class AtomicRules extends Rules {
+	public AtomicRules(){
+		
+	}
+}

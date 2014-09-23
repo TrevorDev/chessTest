@@ -1,0 +1,12 @@
+package chessTest;
+
+import java.util.ArrayList;
+
+public class Board {
+	public ArrayList<Piece> pieces;
+	public Tile[][] tiles;
+
+	public Tile getTile(){
+		return null;
+	}
+}

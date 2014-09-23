@@ -1,0 +1,10 @@
+package chessTest;
+
+import java.util.ArrayList;
+
+public class Rules {
+	public Board board;
+	public ArrayList<Coord> listAvailableMoves(){
+		return null;
+	}
+}

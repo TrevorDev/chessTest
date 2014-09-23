@@ -1,0 +1,14 @@
+package chessTest;
+
+import java.awt.Point;
+
+public class Coord extends Point{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public Coord(String userInput){
+		
+	}
+}
