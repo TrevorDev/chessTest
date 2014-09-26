@@ -1,0 +1,24 @@
+package chessTest;
+
+import boards.Board;
+
+public class TextView implements View {
+	Board board;
+	public TextView(Board b){
+		this.board=b;
+	}
+	
+	@Override
+	public void drawBoard() {
+		for(int i=0;i<board.tiles.length;i++){
+			
+		}
+	}
+
+	@Override
+	public void getMove() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

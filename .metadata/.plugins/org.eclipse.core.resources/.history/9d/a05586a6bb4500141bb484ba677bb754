@@ -1,0 +1,10 @@
+package boards;
+
+import chessTest.Tile;
+
+public class ClassicBoard extends Board {
+	public ClassicBoard(){
+		this.tiles = new Tile[8][8];
+		
+	}
+}

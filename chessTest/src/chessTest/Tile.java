@@ -8,4 +8,9 @@ public class Tile {
 		this.curPiece = p;
 		this.coord = c;
 	}
+	
+	public void setPiece(Piece p){
+		this.curPiece = p;
+		p.curTile = this;
+	}
 }

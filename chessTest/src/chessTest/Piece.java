@@ -1,11 +1,12 @@
 package chessTest;
 
 public class Piece {
-	String name;
+	PieceName name;
 	Color color;
 	Tile curTile;
 	boolean hasMoved;
-	public Piece(String name, Color color){
-		
+	public Piece(PieceName name, Color color){
+		this.name = name;
+		this.color = color;
 	}
 }

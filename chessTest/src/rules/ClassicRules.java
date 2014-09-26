@@ -1,5 +1,9 @@
 package rules;
 
-public class ClassicRules extends Rules {
+import boards.ClassicBoard;
 
+public class ClassicRules extends Rules {
+	public ClassicRules(){
+		this.board = new ClassicBoard();
+	}
 }

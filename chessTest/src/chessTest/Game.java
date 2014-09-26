@@ -1,12 +1,15 @@
 package chessTest;
 
+import rules.ClassicRules;
 import rules.Rules;
 
 public class Game {
-	public Rules rules;
+	public static Rules rules;
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		rules = new ClassicRules();
+		View v = new TextView(rules.board);
+		System.out.println("started");
+		v.drawBoard();
 	}
 
 }
