@@ -14,7 +14,9 @@ public abstract class Rules {
 	public void MovePiece(){
 		
 	}
+	
 	public GameState checkGameOver(){
 		return null;
+		
 	}
 }
