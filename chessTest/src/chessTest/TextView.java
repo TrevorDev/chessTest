@@ -1,9 +1,12 @@
 package chessTest;
 
+import java.util.Scanner;
+
 import boards.Board;
 
 public class TextView implements View {
 	Board board;
+	static Scanner in = new Scanner(System.in);
 	public TextView(Board b){
 		this.board=b;
 	}
@@ -12,8 +15,8 @@ public class TextView implements View {
 	public void drawBoard() {
 		System.out.println("   a b c d e f g h");
 		System.out.println("   - - - - - - - -");
-		for(int i=0;i<board.tiles.length;i++){
-			System.out.print((board.tiles.length-i)+" |");
+		for(int i=board.tiles.length-1;i>=0;i--){
+			System.out.print((i+1)+" |");
 			for(int j=0;j<board.tiles[0].length;j++){
 				
 				char out = 'º';
@@ -48,9 +51,39 @@ public class TextView implements View {
 	}
 
 	@Override
-	public void getMove() {
-		// TODO Auto-generated method stub
+	public Coord[] getMove() {
+		String errorMsg = "Invalid input. Enter you're move eg(A2,A3)";
 		
+		String input = "";
+		input = in.nextLine();
+		input = input.toLowerCase();
+		input = input.replaceAll("[^A-Za-z0-9]", "");
+		
+		if(input.length()!=4){
+			System.out.println(errorMsg);
+			return null;
+		}
+		
+		
+		try{
+			Coord fromCoord;
+			Coord toCoord;
+			fromCoord = createCoord(input.toCharArray()[0], input.toCharArray()[1]);
+			toCoord = createCoord(input.toCharArray()[2], input.toCharArray()[3]);
+			Coord[] ret = new Coord[2];
+			ret[0]=fromCoord;
+			ret[1]=toCoord;
+			return ret; 
+		}catch(Exception e){
+			System.out.println(errorMsg);
+		}
+		return null;
+	}
+	
+	public Coord createCoord(char alpha, char num) throws Exception{
+			int x = alpha - 'a';
+			int y = Integer.parseInt(num+"")-1;
+			return new Coord(x, y);
 	}
 
 }

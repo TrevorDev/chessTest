@@ -10,6 +10,9 @@ public class Tile {
 	}
 	
 	public void setPiece(Piece p){
+		if(p.curTile!=null){
+			p.curTile.curPiece=null;
+		}
 		this.curPiece = p;
 		p.curTile = this;
 	}
