@@ -14,4 +14,8 @@ public class Coord extends Point{
 		this.y=i;
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Coord clone(){
+		return new Coord(this.x, this.y);
+	}
 }

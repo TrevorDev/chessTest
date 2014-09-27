@@ -1,0 +1,37 @@
+package rules;
+
+import java.util.ArrayList;
+
+import chessTest.Coord;
+import chessTest.Piece;
+import chessTest.PieceName;
+import chessTest.Tile;
+import boards.ClassicBoard;
+
+public class ClassicRules extends Rules {
+	public ClassicRules(){
+		this.board = new ClassicBoard();
+	}
+	
+	public void movePiece(Piece p, Coord c){
+		try {
+			Tile t = this.board.getTile(c);
+			t.setPiece(p);
+			t.curPiece.hasMoved = true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public ArrayList<Coord> listAvailableMoves(Piece p){
+		ArrayList<Coord> ret = new ArrayList<Coord>();
+		if(p.name == PieceName.PAWN){
+			Coord c = p.curTile.coord.clone();
+			this.board.getTile(c.x, c.y);
+			ret.add(arg0)
+		}
+		return ret;
+	}
+	
+}

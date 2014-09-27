@@ -1,0 +1,43 @@
+package chessTest;
+
+import rules.ClassicRules;
+import rules.Rules;
+
+public class Game {
+	public static Rules rules;
+	public static void main(String[] args) {
+		rules = new ClassicRules();
+		View v = new TextView(rules.board);
+		System.out.println("started");
+		boolean gameOver = false;
+		Color playersTurn = Color.WHITE;
+		while(!gameOver){
+			v.drawBoard();
+			
+			Coord[] move = v.getMove();
+			if(move==null){
+				v.displayMsg("Invalid input. Enter you're move eg(A2,A3)");
+				continue;
+			}
+			
+			Piece select;
+			select = rules.board.getTile(move[0]).curPiece;
+			if(select==null){
+				v.displayMsg("No peice selected.");
+				continue;
+			}
+			
+			rules.movePiece(select, move[1]);
+			//Switch turn
+			playersTurn = playersTurn == Color.WHITE ? Color.WHITE : Color.BLACK;
+			
+			
+			
+			GameState g = rules.checkGameOver();
+			if(g!=GameState.IN_PROGRESS){
+				gameOver=true;
+			}
+		}
+	}
+
+}

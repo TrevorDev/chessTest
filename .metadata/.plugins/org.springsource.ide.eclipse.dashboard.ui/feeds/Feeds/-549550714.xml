@@ -5,7 +5,57 @@
   <link rel="self" href="https://spring.io/blog.atom" />
   <id>http://spring.io/blog.atom</id>
   <icon>https://spring.io/favicon.ico</icon>
-  <updated>2014-09-26T05:56:00Z</updated>
+  <updated>2014-09-26T14:03:00Z</updated>
+  <entry>
+    <title>Webinar Replay: Why I Recommend Spring</title>
+    <link rel="alternate" href="https://spring.io/blog/2014/09/26/webinar-replay-why-i-recommend-spring" />
+    <category term="news" label="News and Events" />
+    <author>
+      <name>Pieter Humphrey</name>
+    </author>
+    <id>tag:spring.io,2014-09-26:1773</id>
+    <updated>2014-09-26T14:03:00Z</updated>
+    <content type="html">&lt;p&gt;Speaker: Michael Plod&lt;/p&gt;
+
+&lt;p&gt;Slides: &lt;a href="https://speakerdeck.com/mploed/pivotal-webinar-why-do-i-recommend-spring"&gt;https://speakerdeck.com/mploed/pivotal-webinar-why-do-i-recommend-spring&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Is Spring the new legacy as quite a few people tell you on their blogs? I disagree on many levels. Throughout this session I will holistically detail without any polemics why I do recommend using the Spring Framework and its ecosystem. Aspects that will be covered include: operational impacts, ecosystem, coding and road maps. This presentation is aimed at IT managers, Architects and Developers alike.&lt;/p&gt;
+
+&lt;p&gt;Learn more about Spring IO: &lt;a href="http://spring.io"&gt;http://spring.io&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Learn more about Spring IO Platform: &lt;a href="http://spring.io/platform"&gt;http://spring.io/platform&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;&lt;iframe width="420" height="315" src="//www.youtube.com/embed/z1rpWpSKtT8" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</content>
+  </entry>
+  <entry>
+    <title>Webinar Replay: Process Driven Spring Applications with Activiti</title>
+    <link rel="alternate" href="https://spring.io/blog/2014/09/26/webinar-replay-process-driven-spring-applications-with-activiti" />
+    <category term="news" label="News and Events" />
+    <author>
+      <name>Pieter Humphrey</name>
+    </author>
+    <id>tag:spring.io,2014-09-26:1772</id>
+    <updated>2014-09-26T13:56:00Z</updated>
+    <content type="html">&lt;p&gt;Speakers: Josh Long and Joram Barrez, Activiti &lt;/p&gt;
+
+&lt;p&gt;Slides: &lt;a href="https://speakerdeck.com/joshlong/process-driven-applications-with-spring-boot"&gt;https://speakerdeck.com/joshlong/process-driven-applications-with-spring-boot&lt;/a&gt; &lt;/p&gt;
+
+&lt;p&gt;Today's applications are complex, distributed systems that - taken together - produce results. Tracking the flow of work through that system, however, becomes increasingly more painful as automated- and human-driven tasks are integrated into business processes. Business can't react to what it can't see. Business can't measure what it can't see. "Workflow" describes the sequence of processes through which a piece of work passes from initiation to completion. Workflow systems, like Activiti, describe and then execute these processes. Activiti is an open-source, Apache 2-licensed workflow engine that works with Spring and Spring Boot. In this webinar, join Spring Developer Advocate Josh Long and Activiti-ninja Joram Barrez for a look at how to distill, describe and reuse complex business processes using Spring (and Spring Boot) and Activiti. &lt;/p&gt;
+
+&lt;p&gt;Learn more about Spring Boot: &lt;a href="http://projects.spring.io/spring-boot"&gt;http://projects.spring.io/spring-boot&lt;/a&gt; &lt;/p&gt;
+
+&lt;p&gt;Learn more about Activiti below! &lt;/p&gt;
+
+&lt;p&gt;Activiti project page: &lt;a href="http://activiti.org/"&gt;http://activiti.org/&lt;/a&gt; &lt;/p&gt;
+
+&lt;p&gt;Joram's blog: &lt;a href="http://jorambarrez.com/blog"&gt;http://jorambarrez.com/blog&lt;/a&gt; &lt;/p&gt;
+
+&lt;p&gt;Activiti documentation: &lt;a href="http://activiti.org/userguide/index.html"&gt;http://activiti.org/userguide/index.html&lt;/a&gt; &lt;/p&gt;
+
+&lt;p&gt;Activiti Github: &lt;a href="https://github.com/Activiti/Activiti"&gt;https://github.com/Activiti/Activiti&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;&lt;iframe width="420" height="315" src="//www.youtube.com/embed/0PV_8Lew3vg" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</content>
+  </entry>
   <entry>
     <title>Pivotal at JavaOne 2014</title>
     <link rel="alternate" href="https://spring.io/blog/2014/09/26/pivotal-at-javaone-2014" />
@@ -906,218 +956,6 @@ to learn more about these and other Spring Integration improvements added in the
 &lt;p&gt;See the &lt;a href="https://jira.spring.io/secure/ReleaseNote.jspa?projectId=10450&amp;amp;version=14522"&gt;Release Notes&lt;/a&gt; and the &lt;a href="http://projects.spring.io/spring-amqp/"&gt;Project Page&lt;/a&gt; for more information.&lt;/p&gt;
 
 &lt;p&gt;A minor &lt;a href="https://jira.spring.io/secure/ReleaseNote.jspa?projectId=10450&amp;amp;version=14640"&gt;1.3.6 Maintenance Release&lt;/a&gt; is also available.&lt;/p&gt;</content>
-  </entry>
-  <entry>
-    <title>Spring Integration 4.1 Milestone 1 Available</title>
-    <link rel="alternate" href="https://spring.io/blog/2014/09/05/spring-integration-4-1-milestone-1-available" />
-    <category term="releases" label="Releases" />
-    <author>
-      <name>Artem Bilan</name>
-    </author>
-    <id>tag:spring.io,2014-09-05:1752</id>
-    <updated>2014-09-05T10:01:00Z</updated>
-    <content type="html">&lt;p&gt;Dear Spring community,&lt;/p&gt;
-
-&lt;p&gt;We are pleased to announce that Spring Integration 4.1 Milestone 
-1 has been released. Please use the &lt;a href="http://repo.springsource.org/milestone"&gt;Milestone Repository&lt;/a&gt; with Maven or Gradle,
-download a 
-&lt;a href="http://repo.spring.io/milestone/org/springframework/integration/spring-integration/4.1.0.M1"&gt;distribution archive&lt;/a&gt;,
-or see the project &lt;a href="http://projects.spring.io/spring-integration"&gt;home page&lt;/a&gt; for links to the updated documentation, 
-and Maven/Gradle configuration details.&lt;/p&gt;
-
-&lt;p&gt;The release includes some new features and further improvements, as well as a number of bug fixes, with the GA release due 
-around the end of October.&lt;/p&gt;
-
-&lt;p&gt;Here is a summary of major changes:&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Spring Framework 4.1&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Spring Integration takes advantage of a number of new features in Spring Framework 4.1 and requires that release.&lt;/p&gt;
-
-&lt;p&gt;The changes include:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;migration of additional Spring Integration APIs to the Core Spring Messaging module and the Spring Integration equivalents are deprecated&lt;br&gt;
-or removed to avoid confusion in the target applications;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;a number of Messaging performance improvements have been included in Spring Framework 4.1.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Spring Framework 4.1 introduced the &lt;a href="http://docs.spring%0A.io/spring/docs/current/spring-framework-reference/html/expressions.html#expressions-spel-compilation"&gt;SpEL Compiler&lt;/a&gt;. 
-It is very useful for Spring Integration, which extensively uses SpEL at runtime. You can enable the SpEL Compiler using the 
-&lt;code&gt;spring.expression.compiler.mode&lt;/code&gt; System Property with a value of &lt;code&gt;IMMEDIATE&lt;/code&gt; or &lt;code&gt;MIXED&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;p&gt;&lt;strong&gt;WebSocket Adapters&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;WebSocket Inbound and Outbound Channel Adapters have been introduced. They are built on the Spring WebSocket 
-and Messaging foundation.&lt;/p&gt;
-
-&lt;p&gt;One of the key feature of WebSockets that it is a &lt;code&gt;streaming&lt;/code&gt; protocol and from Java perspective it is based on the 
-same API as from server side as well as from client side, so, we can build integration flows using similar components
-on both sides:&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Server side&lt;/em&gt;&lt;/p&gt;
-
-&lt;div class="highlight highlight-java"&gt;&lt;pre&gt;&lt;span class="nd"&gt;@Configuration&lt;/span&gt;
-&lt;span class="nd"&gt;@EnableIntegration&lt;/span&gt;
-&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;ServerConfig&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-
-    &lt;span class="nd"&gt;@Bean&lt;/span&gt;
-    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="n"&gt;ServerWebSocketContainer&lt;/span&gt; &lt;span class="nf"&gt;serverWebSocketContainer&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nf"&gt;ServerWebSocketContainer&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"/ws"&lt;/span&gt;&lt;span class="o"&gt;).&lt;/span&gt;&lt;span class="na"&gt;withSockJs&lt;/span&gt;&lt;span class="o"&gt;();&lt;/span&gt;
-    &lt;span class="o"&gt;}&lt;/span&gt;
-
-    &lt;span class="nd"&gt;@Bean&lt;/span&gt;
-    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="n"&gt;MessageProducer&lt;/span&gt; &lt;span class="nf"&gt;webSocketInboundChannelAdapter&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-        &lt;span class="n"&gt;WebSocketInboundChannelAdapter&lt;/span&gt; &lt;span class="n"&gt;webSocketInboundChannelAdapter&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; 
-                    &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nf"&gt;WebSocketInboundChannelAdapter&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;serverWebSocketContainer&lt;/span&gt;&lt;span class="o"&gt;());&lt;/span&gt;
-        &lt;span class="n"&gt;webSocketInboundChannelAdapter&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;setOutputChannel&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;webSocketInputChannel&lt;/span&gt;&lt;span class="o"&gt;());&lt;/span&gt;
-        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;webSocketInboundChannelAdapter&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
-    &lt;span class="o"&gt;}&lt;/span&gt;
-
-    &lt;span class="nd"&gt;@Bean&lt;/span&gt;
-    &lt;span class="nd"&gt;@Transformer&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;inputChannel&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;"webSocketInputChannel"&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;outputChannel&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;"webSocketOutputChannel"&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
-    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="n"&gt;ExpressionEvaluatingTransformer&lt;/span&gt; &lt;span class="nf"&gt;transformer&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nf"&gt;ExpressionEvaluatingTransformer&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;PARSER&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;parseExpression&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"'Hello ' + payload"&lt;/span&gt;&lt;span class="o"&gt;));&lt;/span&gt;
-    &lt;span class="o"&gt;}&lt;/span&gt;
-
-    &lt;span class="nd"&gt;@Bean&lt;/span&gt;
-    &lt;span class="nd"&gt;@ServiceActivator&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;inputChannel&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;"webSocketOutputChannel"&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
-    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="n"&gt;MessageHandler&lt;/span&gt; &lt;span class="nf"&gt;webSocketOutboundMessageHandler&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nf"&gt;WebSocketOutboundMessageHandler&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;serverWebSocketContainer&lt;/span&gt;&lt;span class="o"&gt;());&lt;/span&gt;
-    &lt;span class="o"&gt;}&lt;/span&gt;
-
-&lt;span class="o"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;em&gt;Client side&lt;/em&gt;&lt;/p&gt;
-
-&lt;div class="highlight highlight-java"&gt;&lt;pre&gt;&lt;span class="nd"&gt;@Configuration&lt;/span&gt;
-&lt;span class="nd"&gt;@EnableIntegration&lt;/span&gt;
-&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;ClientConfig&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-    &lt;span class="nd"&gt;@Bean&lt;/span&gt;
-    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="n"&gt;WebSocketClient&lt;/span&gt; &lt;span class="nf"&gt;webSocketClient&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nf"&gt;SockJsClient&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Collections&lt;/span&gt;&lt;span class="o"&gt;.&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;Transport&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;singletonList&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;
-                        &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nf"&gt;WebSocketTransport&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nf"&gt;JettyWebSocketClient&lt;/span&gt;&lt;span class="o"&gt;())));&lt;/span&gt;
-    &lt;span class="o"&gt;}&lt;/span&gt;
-
-    &lt;span class="nd"&gt;@Bean&lt;/span&gt;
-    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="n"&gt;IntegrationWebSocketContainer&lt;/span&gt; &lt;span class="nf"&gt;clientWebSocketContainer&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nf"&gt;ClientWebSocketContainer&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;webSocketClient&lt;/span&gt;&lt;span class="o"&gt;(),&lt;/span&gt; &lt;span class="s"&gt;"ws://host:port/ws"&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
-    &lt;span class="o"&gt;}&lt;/span&gt;
-
-    &lt;span class="nd"&gt;@Bean&lt;/span&gt;
-    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="n"&gt;MessageProducer&lt;/span&gt; &lt;span class="nf"&gt;webSocketInboundChannelAdapter&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-        &lt;span class="n"&gt;WebSocketInboundChannelAdapter&lt;/span&gt; &lt;span class="n"&gt;webSocketInboundChannelAdapter&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;
-                &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nf"&gt;WebSocketInboundChannelAdapter&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;clientWebSocketContainer&lt;/span&gt;&lt;span class="o"&gt;());&lt;/span&gt;
-        &lt;span class="n"&gt;webSocketInboundChannelAdapter&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;setOutputChannel&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;webSocketInputChannel&lt;/span&gt;&lt;span class="o"&gt;());&lt;/span&gt;
-        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;webSocketInboundChannelAdapter&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
-    &lt;span class="o"&gt;}&lt;/span&gt;
-
-    &lt;span class="nd"&gt;@Bean&lt;/span&gt;
-    &lt;span class="nd"&gt;@ServiceActivator&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;inputChannel&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;"webSocketOutputChannel"&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
-    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="n"&gt;MessageHandler&lt;/span&gt; &lt;span class="nf"&gt;webSocketOutboundMessageHandler&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nf"&gt;WebSocketOutboundMessageHandler&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;clientWebSocketContainer&lt;/span&gt;&lt;span class="o"&gt;());&lt;/span&gt;
-    &lt;span class="o"&gt;}&lt;/span&gt;
-
-&lt;span class="o"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;Another simple way to integrate with Spring WebSockets and STOMP sub-protocol but use integration flows
-to process requests and send responses is based on &lt;code&gt;@MessageMapping&lt;/code&gt; annotation, 
-but on the &lt;code&gt;@MessagingGateway&lt;/code&gt; interface:&lt;/p&gt;
-
-&lt;div class="highlight highlight-java"&gt;&lt;pre&gt;&lt;span class="nd"&gt;@MessagingGateway&lt;/span&gt;
-&lt;span class="nd"&gt;@Controller&lt;/span&gt;
-&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;interface&lt;/span&gt; &lt;span class="nc"&gt;WebSocketGateway&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-
-    &lt;span class="nd"&gt;@MessageMapping&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"/greeting"&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
-    &lt;span class="nd"&gt;@SendToUser&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"/queue/answer"&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
-    &lt;span class="nd"&gt;@Gateway&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;requestChannel&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;"greetingChannel"&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
-    &lt;span class="n"&gt;String&lt;/span&gt; &lt;span class="nf"&gt;greeting&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt; &lt;span class="n"&gt;payload&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
-
-&lt;span class="o"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Reactor support&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;The &lt;code&gt;Promise&amp;lt;?&amp;gt;&lt;/code&gt; Gateway has been added to support &lt;a href="https://github.com/reactor/reactor/wiki"&gt;Project Reactor&lt;/a&gt;.
-Now Spring Integration message flows can be used as a part of &lt;code&gt;Reactive Streams&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class="highlight highlight-java"&gt;&lt;pre&gt;&lt;span class="nd"&gt;@MessagingGateway&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;reactorEnvironment&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;"reactorEnv"&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
-&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;interface&lt;/span&gt; &lt;span class="nc"&gt;PromiseGateway&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-
-    &lt;span class="nd"&gt;@Gateway&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;requestChannel&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;"promiseChannel"&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
-    &lt;span class="n"&gt;Promise&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;Integer&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="nf"&gt;multiply&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Integer&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
-
-&lt;span class="o"&gt;}&lt;/span&gt;
-
-        &lt;span class="o"&gt;...&lt;/span&gt;
-
-&lt;span class="nd"&gt;@ServiceActivator&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;inputChannel&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;"promiseChannel"&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
-&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="n"&gt;Integer&lt;/span&gt; &lt;span class="nf"&gt;multiply&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Integer&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
-&lt;span class="o"&gt;}&lt;/span&gt;
-
-        &lt;span class="o"&gt;...&lt;/span&gt;
-
-&lt;span class="n"&gt;Streams&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;defer&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Arrays&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;asList&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"1"&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="s"&gt;"2"&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="s"&gt;"3"&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="s"&gt;"4"&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="s"&gt;"5"&lt;/span&gt;&lt;span class="o"&gt;))&lt;/span&gt;
-    &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;env&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;environment&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
-    &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;get&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt;
-    &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;map&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nl"&gt;Integer:&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;parseInt&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
-    &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;mapMany&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;integer&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;promiseGateway&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;multiply&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;integer&lt;/span&gt;&lt;span class="o"&gt;))&lt;/span&gt;
-    &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;collect&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt;
-    &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;consume&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;integers&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;...)&lt;/span&gt;
-    &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;flush&lt;/span&gt;&lt;span class="o"&gt;();&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;In addition, support of Spring Framework &lt;code&gt;ListenableFuture&amp;lt;?&amp;gt;&lt;/code&gt; gateway method return types has been added.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Boon JSON mapper&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;The &lt;a href="https://github.com/RichardHightower/boon/wiki"&gt;Boon&lt;/a&gt; &lt;code&gt;JsonObjectMapper&lt;/code&gt; implementation has been added for the 
-JSON Transformers. Boon has been shown to have better JSON mapping performance than Jackson. It is enabled in Spring Integration 
-automatically by detection of its jar in the classpath. &lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Splitter Iterator&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;&amp;lt;splitter&amp;gt;&lt;/code&gt;s now can return &lt;code&gt;Iterator&amp;lt;?&amp;gt;&lt;/code&gt; and &lt;code&gt;Iterable&amp;lt;?&amp;gt;&lt;/code&gt; as a &lt;code&gt;payload&lt;/code&gt; to achieve &lt;code&gt;streaming&lt;/code&gt; behaviour, 
-when each item is emitted as reply message using &lt;code&gt;Iterator.next()&lt;/code&gt;.  &lt;/p&gt;
-
-&lt;p&gt;In addition we have released two maintenance versions 
-&lt;a href="https://jira.spring.io/secure/ReleaseNote.jspa?projectId=10121&amp;amp;version=14666"&gt;3.0.5&lt;/a&gt; and 
-&lt;a href="https://jira.spring.io/secure/ReleaseNote.jspa?projectId=10121&amp;amp;version=14665"&gt;4.0.4&lt;/a&gt;. 
-It's strongly recommended to upgrade to the latest versions as they include some critical fixes.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Wrapping up&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;For a complete list of changes refer to the 
-&lt;a href="https://jira.spring.io/secure/ReleaseNote.jspa?projectId=10121&amp;amp;version=14513"&gt;release notes&lt;/a&gt;,
-&lt;a href="http://docs.spring.io/spring-integration/docs/4.1.0.M1/reference/html/whats-new.html"&gt;What's New&lt;/a&gt; and
-&lt;a href="http://docs.spring.io/spring-integration/docs/4.1.0.M1/api"&gt;Java Docs&lt;/a&gt; of the new components.&lt;/p&gt;
-
-&lt;p&gt;Don't miss, of course, the 
-&lt;a href="https://github.com/spring-projects/spring-integration/wiki/Spring-Integration-4.0-to-4.1-Migration-Guide"&gt;Migration Guild&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;We look forward to your comments and feedback (&lt;a href="http://stackoverflow.com"&gt;StackOverflow&lt;/a&gt; (&lt;code&gt;spring-integration&lt;/code&gt; tag), 
-&lt;a href="https://jira.spring.io/browse/INT"&gt;Spring JIRA&lt;/a&gt;)
-as soon as possible and report issues you find before we GA towards over a couple months.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;SpringOne 2GX 2014&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Some of those mentioned topics are being covered at SpringOne next week. Please attend &lt;a href="https://2014.event.springone2gx.com/schedule/sessions/spring_integration_java_configuration_and_more.html"&gt;Gary Russell's Session&lt;/a&gt; 
-to learn more about these and other Spring Integration improvements added in the last 12 months.&lt;/p&gt;</content>
-  </entry>
-  <entry>
-    <title>Spring Boot 1.1.6 released</title>
-    <link rel="alternate" href="https://spring.io/blog/2014/09/05/spring-boot-1-1-6-released" />
-    <category term="releases" label="Releases" />
-    <author>
-      <name>Phil Webb</name>
-    </author>
-    <id>tag:spring.io,2014-09-05:1751</id>
-    <updated>2014-09-05T04:22:21Z</updated>
-    <content type="html">&lt;p&gt;We are pleased to announce that Spring Boot 1.1.6 has been released and is available from &lt;a href="http://repo.spring.io/release"&gt;repo.spring.io&lt;/a&gt; and &lt;a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.springframework.boot%22"&gt;Maven Central&lt;/a&gt;. &lt;/p&gt;
-
-&lt;p&gt;This release closes almost 50 reported issues and is a recommended upgrade for all Spring Boot users. For a complete list of changes please refer to the &lt;a href="https://github.com/spring-projects/spring-boot/issues?q=milestone%3A1.1.6"&gt;issue tracker&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href="http://projects.spring.io/spring-boot/"&gt;Project Page&lt;/a&gt; | &lt;a href="https://github.com/spring-projects/spring-boot"&gt;GitHub&lt;/a&gt; | &lt;a href="https://github.com/spring-projects/spring-boot/issues"&gt;Issues&lt;/a&gt; | &lt;a href="http://docs.spring.io/spring-boot/docs/1.1.6.RELEASE/reference/htmlsingle"&gt;Documentation&lt;/a&gt;&lt;/p&gt;</content>
   </entry>
 </feed>
 

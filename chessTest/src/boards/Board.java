@@ -11,12 +11,12 @@ public abstract class Board {
 	public Tile[][] tiles;
 
 	public Tile getTile(int x, int y){
-		return null;
+		return getTile(new Coord(x,y));
 	}
 	
-	public Tile getTile(Coord c) throws Exception{
+	public Tile getTile(Coord c){
 		if(c.x>tiles[0].length || c.y>tiles.length){
-			throw new Exception();
+			return null;
 		}
 		return tiles[c.y][c.x];
 	}

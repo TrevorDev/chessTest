@@ -52,18 +52,18 @@ public class TextView implements View {
 
 	@Override
 	public Coord[] getMove() {
-		String errorMsg = "Invalid input. Enter you're move eg(A2,A3)";
-		
+		System.out.println("Enter you're move eg(A2,A3)");
 		String input = "";
 		input = in.nextLine();
 		input = input.toLowerCase();
 		input = input.replaceAll("[^A-Za-z0-9]", "");
 		
+		//clear screen
+		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		
 		if(input.length()!=4){
-			System.out.println(errorMsg);
 			return null;
 		}
-		
 		
 		try{
 			Coord fromCoord;
@@ -75,15 +75,19 @@ public class TextView implements View {
 			ret[1]=toCoord;
 			return ret; 
 		}catch(Exception e){
-			System.out.println(errorMsg);
+			return null;
 		}
-		return null;
 	}
 	
 	public Coord createCoord(char alpha, char num) throws Exception{
 			int x = alpha - 'a';
 			int y = Integer.parseInt(num+"")-1;
 			return new Coord(x, y);
+	}
+
+	@Override
+	public void displayMsg(String msg) {
+		System.out.println(msg);
 	}
 
 }
