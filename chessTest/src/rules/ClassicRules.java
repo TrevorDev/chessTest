@@ -1,6 +1,7 @@
 package rules;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import chessTest.Color;
 import chessTest.Coord;
@@ -25,9 +26,10 @@ public class ClassicRules extends Rules {
 	public ArrayList<Move> listAvailableMoves(Piece p){
 		ArrayList<Move> ret = new ArrayList<Move>();
 		int direction = p.color == Color.WHITE ? 1 : -1;
-		if(p.name == PieceName.PAWN){
-			Coord c = p.curTile.coord.clone();
-			Tile t = this.board.getTile(c.x, c.y+(1*direction));
+		Coord c = p.curTile.coord.clone();
+		Tile t;
+		if (p.name == PieceName.PAWN){
+			t = this.board.getTile(c.x, c.y+(1*direction));
 			if(t!=null && t.curPiece == null){
 				ret.add(p.createMove(t.coord.clone()));
 			}
@@ -37,8 +39,46 @@ public class ClassicRules extends Rules {
 					ret.add(p.createMove(t.coord.clone()));
 				}
 			}
-		}else if (p.name == PieceName.KING){
+		} else if (p.name == PieceName.KING){
+			// loop through the 2D grid around the current piece
+			for (int i = -1; i < 2; i++) {
+				for (int j = -1; j < 2; j++) {
+					if (i == 0 && j == 0) { // can't move the king to it's current position
+						continue;
+					}
+					t = this.board.getTile(c.x + j, c.y + i);
+					if (t != null) {
+						ret.add(p.createMove(t.coord.clone()));
+						
+					}
+				}
+			}
+		} else if (p.name == PieceName.ROOK) {
+			// loop through the vertical, going up
+			int offset = 0;
+			for (offset = 0;; offset++) {
+				t = this.board.getTile(c.x, c.y + offset);
+				if (t == null) {
+					break;
+				}
+				ret.add(p.createMove(t.coord.clone()));
+				if (t.curPiece != null) {
+					
+					break;
+				}
+				
+			}
+				
 			
+		}
+		
+		// remove all moves that move the piece to a tile that doesn't exist, or to a tile occupied by a piece of our own colour
+		Iterator<Move> i = ret.iterator();
+		while (i.hasNext()) {
+			Move x = i.next();
+			if (this.board.getTile(x.coord).curPiece == null || this.board.getTile(x.coord).curPiece.color != p.color) {
+				i.remove();
+			}
 		}
 		return ret;
 	}

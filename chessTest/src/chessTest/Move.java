@@ -3,7 +3,7 @@ package chessTest;
 import java.util.ArrayList;
 
 public class Move {
-	Coord coord = null;
+	public Coord coord = null;
 	ArrayList<Pair<Piece, Coord>> subMoves;
 	public Move(Pair<Piece, Coord> x){
 		coord = x.getElement1();
