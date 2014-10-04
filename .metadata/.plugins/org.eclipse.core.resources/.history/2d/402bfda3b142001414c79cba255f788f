@@ -1,9 +1,0 @@
-package chessTest;
-
-import java.awt.Point;
-
-public class Coord extends Point{
-	public Coord(){
-		
-	}
-}
