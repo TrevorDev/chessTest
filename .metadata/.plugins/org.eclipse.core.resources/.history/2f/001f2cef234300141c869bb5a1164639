@@ -1,0 +1,7 @@
+package chessTest;
+
+public class LosAlamos extends Board{
+	public LosAlamos(){
+		
+	}
+}

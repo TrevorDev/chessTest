@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.awt.Point"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="rules.ClassicRules"/>
+<fullyQualifiedTypeName name="boards.ClassicBoard"/>
+<fullyQualifiedTypeName name="boards.Board"/>
+<fullyQualifiedTypeName name="java.io.Console"/>
+<fullyQualifiedTypeName name="java.util.Scanner"/>
+<fullyQualifiedTypeName name="chessTest.Piece"/>
+<fullyQualifiedTypeName name="chessTest.Coord"/>
+<fullyQualifiedTypeName name="chessTest.Tile"/>
+<fullyQualifiedTypeName name="chessTest.PieceName"/>
+<fullyQualifiedTypeName name="chessTest.Color"/>
+</qualifiedTypeNameHistroy>

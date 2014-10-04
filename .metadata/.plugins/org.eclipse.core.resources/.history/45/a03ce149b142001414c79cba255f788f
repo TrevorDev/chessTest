@@ -1,0 +1,6 @@
+package chessTest;
+
+public class Tile {
+	public Piece curPiece;
+	
+}

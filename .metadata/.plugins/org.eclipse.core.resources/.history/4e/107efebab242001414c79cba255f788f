@@ -1,0 +1,6 @@
+package chessTest;
+
+public enum GameState {
+    ONE = "one",
+    TWO = "two"
+}

@@ -1,0 +1,5 @@
+package chessTest;
+
+public interface class View {
+	public void drawBoard();
+}

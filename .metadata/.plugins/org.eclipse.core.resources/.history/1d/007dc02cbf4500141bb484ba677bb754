@@ -1,0 +1,16 @@
+package boards;
+
+import chessTest.Coord;
+import chessTest.Piece;
+import chessTest.Tile;
+
+public class ClassicBoard extends Board {
+	public ClassicBoard(){
+		this.tiles = new Tile[8][8];
+		for(int i=0;i<8;i++){
+			for(int j=0;j<8;j++){
+				this.tiles[i][j] = new Tile(new Coord(j,i), null);
+			}
+		}
+	}
+}
