@@ -9,4 +9,8 @@ public class Piece {
 		this.name = name;
 		this.color = color;
 	}
+	
+	public Move createMove(Coord x){
+		return new Move(new Pair<Piece, Coord>(this, x));
+	}
 }

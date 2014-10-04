@@ -29,12 +29,12 @@ public class ClassicRules extends Rules {
 			Coord c = p.curTile.coord.clone();
 			Tile t = this.board.getTile(c.x, c.y+(1*direction));
 			if(t!=null && t.curPiece == null){
-				ret.add(new Move(new Pair<Piece, Coord>(p, t.coord.clone())));
+				ret.add(p.createMove(t.coord.clone()));
 			}
 			if(!p.hasMoved){
 				t = this.board.getTile(c.x, c.y+(2*direction));
 				if(t!=null && t.curPiece == null){
-					ret.add(new Move(new Pair<Piece, Coord>(p,t.coord.clone())));
+					ret.add(p.createMove(t.coord.clone()));
 				}
 			}
 		}else if (p.name == PieceName.KING){
