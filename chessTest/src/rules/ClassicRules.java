@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import chessTest.Color;
 import chessTest.Coord;
+import chessTest.Move;
+import chessTest.Pair;
 import chessTest.Piece;
 import chessTest.PieceName;
 import chessTest.Tile;
@@ -20,21 +22,22 @@ public class ClassicRules extends Rules {
 		t.curPiece.hasMoved = true;
 	}
 	
-	public ArrayList<Coord> listAvailableMoves(Piece p){
-		ArrayList<Coord> ret = new ArrayList<Coord>();
+	public ArrayList<Move> listAvailableMoves(Piece p){
+		ArrayList<Move> ret = new ArrayList<Move>();
 		int direction = p.color == Color.WHITE ? 1 : -1;
 		if(p.name == PieceName.PAWN){
 			Coord c = p.curTile.coord.clone();
 			Tile t = this.board.getTile(c.x, c.y+(1*direction));
 			if(t!=null && t.curPiece == null){
-				ret.add(t.coord.clone());
+				ret.add(new Move(new Pair<Piece, Coord>(p, t.coord.clone())));
 			}
 			if(!p.hasMoved){
 				t = this.board.getTile(c.x, c.y+(2*direction));
 				if(t!=null && t.curPiece == null){
-					ret.add(t.coord.clone());
+					ret.add(new Move(new Pair<Piece, Coord>(p,t.coord.clone())));
 				}
 			}
+		}else if (p.name == PieceName.KING){
 			
 		}
 		return ret;
