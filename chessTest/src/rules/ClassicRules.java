@@ -149,6 +149,101 @@ public class ClassicRules extends Rules {
 				}
 			}
 		}
+		else if (p.name == PieceName.QUEEN) {
+			// loop through the diagonal, going up and left
+			int offset;
+		    for (offset = 1;; offset++) {
+				t = this.board.getTile(c.x + offset, c.y + offset);
+				if (t == null) {
+					break;
+				}
+				ret.add(p.createMove(t.coord.clone()));
+				if (t.curPiece != null) {	
+					break;
+				}
+			}
+			// loop through the diagonal, going up and right
+			for (offset = 1;; offset++) {
+				t = this.board.getTile(c.x - offset, c.y - offset);
+				if (t == null) {
+				    break;
+				}
+				ret.add(p.createMove(t.coord.clone()));
+				if (t.curPiece != null) {	
+					break;
+				}
+			}
+			// loop through the diagonal, going down and left
+			for (offset = 1;; offset++) {
+			    t = this.board.getTile(c.x + offset, c.y - offset);
+				if (t == null) {
+					break;
+				}
+				ret.add(p.createMove(t.coord.clone()));
+				if (t.curPiece != null) {	
+					break;
+				}
+			}
+			// loop through the diagonal, going down and right
+			for (offset = 1;; offset++) {
+			    t = this.board.getTile(c.x - offset, c.y + offset);
+				if (t == null) {
+				    break;
+				}
+				ret.add(p.createMove(t.coord.clone()));
+				if (t.curPiece != null) {	
+					break;
+				}
+			}
+						
+			// loop through the vertical, going up
+			for (offset = 1;; offset++) {
+				t = this.board.getTile(c.x, c.y + offset);
+				if (t == null) {
+					break;
+				}
+				ret.add(p.createMove(t.coord.clone()));
+				if (t.curPiece != null) {	
+					break;
+				}
+			}
+						
+			// loop through the vertical, going down
+			for (offset = -1;; offset--) {
+				t = this.board.getTile(c.x, c.y + offset);
+				if (t == null) {
+					break;
+				}
+				ret.add(p.createMove(t.coord.clone()));
+				if (t.curPiece != null) {	
+					break;
+				}
+			}
+						
+			// loop through the horizontal, going left
+			for (offset = 1;; offset++) {
+				t = this.board.getTile(c.x + offset, c.y);
+				if (t == null) {
+					break;
+				}
+				ret.add(p.createMove(t.coord.clone()));
+				if (t.curPiece != null) {	
+					break;
+				}
+			}
+						
+			// loop through the horizontal, going right
+			for (offset = -1;; offset--) {
+				t = this.board.getTile(c.x + offset, c.y);
+				if (t == null) {
+					break;
+				}
+				ret.add(p.createMove(t.coord.clone()));
+				if (t.curPiece != null) {	
+				    break;
+				}
+			}
+		}
 		else if (p.name == PieceName.KNIGHT) {
 			t = this.board.getTile(c.x + 1, c.y + 2);
 			if (t != null) {
