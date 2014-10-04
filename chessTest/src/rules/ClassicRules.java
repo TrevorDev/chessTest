@@ -102,8 +102,40 @@ public class ClassicRules extends Rules {
 				    break;
 				}
 		    }
+		} else if (p.name == PieceName.KNIGHT) {
+			t = this.board.getTile(c.x + 1, c.y + 2);
+			if (t != null) {
+				ret.add(p.createMove(t.coord.clone()));
+			}
+			t = this.board.getTile(c.x + 1, c.y - 2);
+			if (t != null) {
+				ret.add(p.createMove(t.coord.clone()));
+			}
+			t = this.board.getTile(c.x - 1, c.y + 2);
+			if (t != null) {
+				ret.add(p.createMove(t.coord.clone()));
+			}
+			t = this.board.getTile(c.x - 1, c.y - 2);
+			if (t != null) {
+				ret.add(p.createMove(t.coord.clone()));
+			}
 			
-			
+			t = this.board.getTile(c.x + 2, c.y + 1);
+			if (t != null) {
+				ret.add(p.createMove(t.coord.clone()));
+			}
+			t = this.board.getTile(c.x + 2, c.y - 1);
+			if (t != null) {
+				ret.add(p.createMove(t.coord.clone()));
+			}
+			t = this.board.getTile(c.x - 2, c.y + 1);
+			if (t != null) {
+				ret.add(p.createMove(t.coord.clone()));
+			}
+			t = this.board.getTile(c.x - 2, c.y - 1);
+			if (t != null) {
+				ret.add(p.createMove(t.coord.clone()));
+			}
 		}
 		
 		// remove all moves that move the piece to a tile that doesn't exist, or to a tile occupied by a piece of our own colour
