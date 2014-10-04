@@ -55,20 +55,54 @@ public class ClassicRules extends Rules {
 			}
 		} else if (p.name == PieceName.ROOK) {
 			// loop through the vertical, going up
-			int offset = 0;
-			for (offset = 0;; offset++) {
+			int offset;
+			for (offset = 1;; offset++) {
 				t = this.board.getTile(c.x, c.y + offset);
 				if (t == null) {
 					break;
 				}
 				ret.add(p.createMove(t.coord.clone()));
-				if (t.curPiece != null) {
-					
+				if (t.curPiece != null) {	
 					break;
 				}
-				
 			}
-				
+			
+			// loop through the vertical, going down
+			for (offset = -1;; offset--) {
+				t = this.board.getTile(c.x, c.y + offset);
+				if (t == null) {
+					break;
+				}
+				ret.add(p.createMove(t.coord.clone()));
+				if (t.curPiece != null) {	
+					break;
+				}
+			}
+			
+			// loop through the horizontal, going left
+			for (offset = 1;; offset++) {
+				t = this.board.getTile(c.x + offset, c.y);
+				if (t == null) {
+					break;
+				}
+				ret.add(p.createMove(t.coord.clone()));
+				if (t.curPiece != null) {	
+					break;
+				}
+			}
+			
+			// loop through the horizontal, going right
+			for (offset = -1;; offset--) {
+				t = this.board.getTile(c.x + offset, c.y);
+				if (t == null) {
+					break;
+				}
+				ret.add(p.createMove(t.coord.clone()));
+				if (t.curPiece != null) {	
+				    break;
+				}
+		    }
+			
 			
 		}
 		
