@@ -102,7 +102,54 @@ public class ClassicRules extends Rules {
 				    break;
 				}
 		    }
-		} else if (p.name == PieceName.KNIGHT) {
+		} else if (p.name == PieceName.BISHOP) {
+			// loop through the diagonal, going up and left
+			int offset;
+			for (offset = 1;; offset++) {
+				t = this.board.getTile(c.x + offset, c.y + offset);
+				if (t == null) {
+					break;
+				}
+				ret.add(p.createMove(t.coord.clone()));
+				if (t.curPiece != null) {	
+					break;
+				}
+			}
+			// loop through the diagonal, going up and right
+			for (offset = 1;; offset++) {
+				t = this.board.getTile(c.x - offset, c.y - offset);
+				if (t == null) {
+				    break;
+				}
+				ret.add(p.createMove(t.coord.clone()));
+				if (t.curPiece != null) {	
+					break;
+				}
+			}
+			// loop through the diagonal, going down and left
+			for (offset = 1;; offset++) {
+			    t = this.board.getTile(c.x + offset, c.y - offset);
+				if (t == null) {
+				   break;
+				}
+				ret.add(p.createMove(t.coord.clone()));
+			    if (t.curPiece != null) {	
+					break;
+				}
+			}
+			// loop through the diagonal, going down and right
+			for (offset = 1;; offset++) {
+			    t = this.board.getTile(c.x - offset, c.y + offset);
+				if (t == null) {
+				   break;
+				}
+				ret.add(p.createMove(t.coord.clone()));
+			    if (t.curPiece != null) {	
+					break;
+				}
+			}
+		}
+		else if (p.name == PieceName.KNIGHT) {
 			t = this.board.getTile(c.x + 1, c.y + 2);
 			if (t != null) {
 				ret.add(p.createMove(t.coord.clone()));
