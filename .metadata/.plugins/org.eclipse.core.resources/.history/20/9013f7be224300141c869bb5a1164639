@@ -1,9 +1,0 @@
-package chessTest;
-
-public class Board {
-
-	public class ClassicBoard {
-
-	}
-
-}

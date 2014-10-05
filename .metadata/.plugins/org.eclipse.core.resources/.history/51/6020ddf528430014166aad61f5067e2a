@@ -1,5 +1,0 @@
-package chessTest.rules;
-
-public class ClassicRules extends Rules {
-
-}

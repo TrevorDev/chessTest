@@ -1,7 +1,0 @@
-package chessTest.rules;
-
-public class LosAlamosRules {
-	public LosAlamosRules(){
-		
-	}
-}

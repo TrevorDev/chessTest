@@ -1,7 +1,0 @@
-package chessTest;
-
-public interface View {
-	public void drawBoard();
-	public void displayMsg();
-	public Coord[] getMove();
-}
