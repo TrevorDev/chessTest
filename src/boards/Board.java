@@ -15,7 +15,7 @@ public abstract class Board {
 	}
 	
 	public Tile getTile(Coord c){
-		if(c.x>tiles[0].length || c.y>tiles.length){
+		if(c.x < 0 || c.y < 0 || c.x>=tiles[0].length || c.y>tiles.length){
 			return null;
 		}
 		return tiles[c.y][c.x];

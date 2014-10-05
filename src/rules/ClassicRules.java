@@ -19,8 +19,14 @@ public class ClassicRules extends Rules {
 	
 	public void movePiece(Piece p, Coord c, Color playersTurn){
 		Tile t = this.board.getTile(c);
-		t.setPiece(p);
-		t.curPiece.hasMoved = true;
+		ArrayList<Move> moves = this.listAvailableMoves(p);
+		for(Move move : moves){
+			if(move.coord.x == c.x && move.coord.y == c.y){
+				t.setPiece(p);
+				t.curPiece.hasMoved = true;
+				break;
+			}
+		}
 	}
 	
 	public ArrayList<Move> listAvailableMoves(Piece p){
@@ -284,7 +290,7 @@ public class ClassicRules extends Rules {
 		Iterator<Move> i = ret.iterator();
 		while (i.hasNext()) {
 			Move x = i.next();
-			if (this.board.getTile(x.coord).curPiece == null || this.board.getTile(x.coord).curPiece.color != p.color) {
+			if (this.board.getTile(x.coord).curPiece != null && this.board.getTile(x.coord).curPiece.color == p.color) {
 				i.remove();
 			}
 		}
