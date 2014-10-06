@@ -20,7 +20,36 @@ public class ClassicRules extends Rules {
 	}
 	
 	public boolean isInCheck(Board b, Color c) {
-		return Math.random() > 0.5 ? true : false;
+		
+		Piece king = null;
+		boolean check = false;
+		
+		kingLoop:
+		for ( int y = 0; y < board.tiles.length; y++){
+			for ( int x = 0; x < board.tiles.length; x++){
+				Piece p = board.getTile(new Coord(x,y)).curPiece;
+				if ( p.name == PieceName.KING ){
+					king = p;
+					break kingLoop;
+				}
+			}
+		}
+		
+		checkLoop:
+		for ( int y = 0; y < board.tiles.length; y++){
+			for ( int x = 0; x < board.tiles.length; x++){
+				Piece p = board.getTile(new Coord(x,y)).curPiece;
+				ArrayList<Move> moves = this.listAvailableMoves(p);
+				for(Move move : moves){
+					if ( move.coord == king.curTile.coord ){
+						check = true;
+						break checkLoop;
+					}
+				}
+			}
+		}
+		
+		return check;
 	}
 	
 	public void movePiece(Piece p, Coord c, Color playersTurn, View view){

@@ -3,11 +3,19 @@ package chessTest;
 import java.util.ArrayList;
 
 public class Move {
+	
 	public Coord coord = null;
+	public boolean isKillMove = false;
 	ArrayList<Pair<Piece, Coord>> subMoves;
+	
 	public Move(Pair<Piece, Coord> x){
+		this(x,false);
+	}
+	
+	public Move(Pair<Piece, Coord> x, boolean isKillMove){
 		coord = x.getElement1();
 		subMoves = new ArrayList<Pair<Piece, Coord>>();
+		this.isKillMove = isKillMove;
 		this.addSubMove(x);
 	}
 	
