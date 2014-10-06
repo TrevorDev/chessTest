@@ -3,16 +3,15 @@ package rules;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import boards.Board;
+import boards.ClassicBoard;
 import chessTest.Color;
 import chessTest.Coord;
 import chessTest.Move;
-import chessTest.Pair;
 import chessTest.Piece;
 import chessTest.PieceName;
 import chessTest.Tile;
 import chessTest.View;
-import boards.Board;
-import boards.ClassicBoard;
 
 public class ClassicRules extends Rules {
 	public ClassicRules(){
@@ -93,14 +92,25 @@ public class ClassicRules extends Rules {
 		if (p.name == PieceName.PAWN){
 			t = this.board.getTile(c.x, c.y+(1*direction));
 			if(t!=null && t.curPiece == null){
-				ret.add(p.createMove(t.coord.clone()));
+				ret.add(p.createMove(t.coord.clone(),false));
 			}
 			if(!p.hasMoved){
 				t = this.board.getTile(c.x, c.y+(2*direction));
 				if(t!=null && t.curPiece == null){
-					ret.add(p.createMove(t.coord.clone()));
+					ret.add(p.createMove(t.coord.clone(),false));
 				}
 			}
+			
+			t = this.board.getTile(c.x+1, c.y+(1*direction));
+			if(t!=null && t.curPiece != null){
+				ret.add(p.createMove(t.coord.clone()));
+			}
+			
+			t = this.board.getTile(c.x-1, c.y+(1*direction));
+			if(t!=null && t.curPiece != null){
+				ret.add(p.createMove(t.coord.clone()));
+			}
+			
 		} else if (p.name == PieceName.KING){
 			// loop through the 2D grid around the current piece
 			for (int i = -1; i < 2; i++) {

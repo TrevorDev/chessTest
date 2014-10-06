@@ -14,4 +14,8 @@ public class Piece {
 	public Move createMove(Coord x){
 		return new Move(new Pair<Piece, Coord>(this, x));
 	}
+	
+	public Move createMove(Coord x, boolean isKillMove){
+		return new Move(new Pair<Piece, Coord>(this, x), isKillMove);
+	}
 }

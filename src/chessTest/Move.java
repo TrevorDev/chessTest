@@ -5,11 +5,11 @@ import java.util.ArrayList;
 public class Move {
 	
 	public Coord coord = null;
-	public boolean isKillMove = false;
+	public boolean isKillMove = true;
 	ArrayList<Pair<Piece, Coord>> subMoves;
 	
 	public Move(Pair<Piece, Coord> x){
-		this(x,false);
+		this(x,true);
 	}
 	
 	public Move(Pair<Piece, Coord> x, boolean isKillMove){
