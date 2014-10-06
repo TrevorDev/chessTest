@@ -11,10 +11,26 @@ public class TextView implements View {
 		this.board=b;
 	}
 	
+	public void printDashLine(){
+		System.out.print("   ");
+		for(int i=0;i<board.tiles.length;i++){
+			System.out.print("- ");
+		}
+		System.out.println("");
+	}
+	
+	public void printLetters(){
+		System.out.print("   ");
+		for(int i=0;i<board.tiles.length;i++){
+			System.out.print(Character.toChars((i+65))[0]+" ");
+		}
+		System.out.println("");
+	}
+	
 	@Override
 	public void drawBoard() {
-		System.out.println("   a b c d e f g h");
-		System.out.println("   - - - - - - - -");
+		printLetters();
+		printDashLine();
 		for(int i=board.tiles.length-1;i>=0;i--){
 			System.out.print((i+1)+" |");
 			for(int j=0;j<board.tiles[0].length;j++){
@@ -45,10 +61,10 @@ public class TextView implements View {
 				}				
 				System.out.print(out+" ");
 			}
-			System.out.println("|"+(i+1));
+			System.out.println("| "+(i+1));
 		}
-		System.out.println("   - - - - - - - -");
-		System.out.println("   a b c d e f g h");
+		printDashLine();
+		printLetters();
 	}
 
 	@Override
