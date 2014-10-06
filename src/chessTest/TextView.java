@@ -19,9 +19,9 @@ public class TextView implements View {
 			System.out.print((i+1)+" |");
 			for(int j=0;j<board.tiles[0].length;j++){
 				
-				char out = 'º';
+				char out = '.';
 				if((i+j)%2==0){
-					out = '×';
+					out = '.';
 				}
 				Piece p = board.tiles[i][j].curPiece;
 				if(p!=null){
@@ -45,9 +45,10 @@ public class TextView implements View {
 				}				
 				System.out.print(out+" ");
 			}
-			System.out.println("|");
+			System.out.println("|"+(i+1));
 		}
 		System.out.println("   - - - - - - - -");
+		System.out.println("   a b c d e f g h");
 	}
 
 	@Override
