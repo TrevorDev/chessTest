@@ -11,11 +11,16 @@ import chessTest.Piece;
 import chessTest.PieceName;
 import chessTest.Tile;
 import chessTest.View;
+import boards.Board;
 import boards.ClassicBoard;
 
 public class ClassicRules extends Rules {
 	public ClassicRules(){
 		this.board = new ClassicBoard();
+	}
+	
+	public boolean whoIsInCheck(Board b, Color c) {
+		return Math.random() > 0.5 ? true : false;
 	}
 	
 	public void movePiece(Piece p, Coord c, Color playersTurn, View view){
