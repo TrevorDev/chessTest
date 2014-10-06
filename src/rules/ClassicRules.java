@@ -19,7 +19,7 @@ public class ClassicRules extends Rules {
 		this.board = new ClassicBoard();
 	}
 	
-	public boolean whoIsInCheck(Board b, Color c) {
+	public boolean isInCheck(Board b, Color c) {
 		return Math.random() > 0.5 ? true : false;
 	}
 	
