@@ -40,7 +40,7 @@ public class ClassicRules extends Rules {
 				Piece p = board.getTile(new Coord(x,y)).curPiece;
 				ArrayList<Move> moves = this.listAvailableMoves(p);
 				for(Move move : moves){
-					if ( move.coord == king.curTile.coord ){
+					if ( move.coord == king.curTile.coord && move.isKillMove ){
 						check = true;
 						break checkLoop;
 					}
