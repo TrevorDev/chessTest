@@ -10,6 +10,7 @@ import chessTest.Pair;
 import chessTest.Piece;
 import chessTest.PieceName;
 import chessTest.Tile;
+import chessTest.View;
 import boards.ClassicBoard;
 
 public class ClassicRules extends Rules {
@@ -17,16 +18,37 @@ public class ClassicRules extends Rules {
 		this.board = new ClassicBoard();
 	}
 	
-	public void movePiece(Piece p, Coord c, Color playersTurn){
+	public void movePiece(Piece p, Coord c, Color playersTurn, View view){
 		Tile t = this.board.getTile(c);
 		ArrayList<Move> moves = this.listAvailableMoves(p);
 		for(Move move : moves){
 			if(move.coord.x == c.x && move.coord.y == c.y){
 				t.setPiece(p);
 				t.curPiece.hasMoved = true;
+				p = checkPromotion(p, move, view);
 				break;
 			}
 		}
+	}
+	
+	public Piece checkPromotion(Piece p, Move move, View view){
+		
+		if( p.name == PieceName.PAWN ){
+			
+			if ( p.color == Color.WHITE ){
+				if ( move.coord.y == (board.tiles.length - 1) ){
+					p.name = view.getPromotion();
+				}
+			}
+			
+			if ( p.color == Color.BLACK ){
+				if ( move.coord.y == 0 ){
+					p.name = view.getPromotion();
+				}
+			}
+		}
+		
+		return p;
 	}
 	
 	public ArrayList<Move> listAvailableMoves(Piece p){

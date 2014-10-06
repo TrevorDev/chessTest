@@ -37,7 +37,7 @@ public class Game {
 					continue;
 				}
 				//TODO HANDLE BAD RETURN FROM MOVEPIECE
-				rules.movePiece(select, move[1], playersTurn);
+				rules.movePiece(select, move[1], playersTurn, v);
 			} while(invalidMove);
 			
 			

@@ -22,4 +22,10 @@ public class GUIView implements View{
 		return null;
 	}
 
+	@Override
+	public PieceName getPromotion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

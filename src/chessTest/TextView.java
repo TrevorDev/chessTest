@@ -106,5 +106,29 @@ public class TextView implements View {
 	public void displayMsg(String msg) {
 		System.out.println(msg);
 	}
+	
+	public PieceName getPromotion(){
+		
+		System.out.println("Enter desired promotion piece:");
+		String input = "";
+		input = in.nextLine();
+		
+		if ( input.equalsIgnoreCase("q") ){
+			return PieceName.QUEEN;
+		}
+		else if ( input.equalsIgnoreCase("r") ){
+			return PieceName.ROOK;
+		}
+		else if ( input.equalsIgnoreCase("n") ){
+			return PieceName.KNIGHT;
+		}
+		else if ( input.equalsIgnoreCase("b") ){
+			return PieceName.BISHOP;
+		}
+		else{
+			System.out.println("Invaild promotion piece, please try again.");
+			return getPromotion();
+		}
+	}
 
 }
