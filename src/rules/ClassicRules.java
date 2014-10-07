@@ -31,7 +31,7 @@ public class ClassicRules extends Rules {
 		for ( int y = 0; y < b.tiles.length; y++){
 			for ( int x = 0; x < b.tiles.length; x++){
 				Piece p = b.getTile(new Coord(x,y)).curPiece;
-				if ( p.name == PieceName.KING ){
+				if ( p != null && p.name == PieceName.KING ){
 					king = p;
 					break kingLoop;
 				}
