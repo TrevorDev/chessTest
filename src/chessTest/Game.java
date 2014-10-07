@@ -1,13 +1,16 @@
 package chessTest;
 
+import boards.Board;
 import rules.ClassicRules;
 import rules.Rules;
 
 public class Game {
 	public static Rules rules;
+	public static Board board;
 	public static void main(String[] args) {
 		rules = new ClassicRules();
-		View v = new TextView(rules.board);
+		board = rules.createBoard();
+		View v = new TextView(board);
 		v.displayMsg("Welcome to chess!");
 		boolean gameOver = false;
 		Color playersTurn = Color.WHITE;
@@ -32,7 +35,7 @@ public class Game {
 				//check if first coord is a piece
 				Piece select = null;
 				try {
-					select = rules.board.getTile(move[0]).curPiece;
+					select = board.getTile(move[0]).curPiece;
 				} catch (NullPointerException e) {
 					//if getTile returns null when a user enters an invalid coordinate like W2T4
 					v.displayMsg("Invalid coordinate.");
@@ -45,7 +48,7 @@ public class Game {
 					continue;
 				}
 				//TODO HANDLE BAD RETURN FROM MOVEPIECE
-				String err = rules.movePiece(select, move[1], playersTurn, v, rules.board);
+				String err = rules.movePiece(select, move[1], playersTurn, v, board);
 				
 				if ( err != null ){
 					invalidMove = true;

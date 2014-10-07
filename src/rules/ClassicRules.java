@@ -15,7 +15,11 @@ import chessTest.View;
 
 public class ClassicRules extends Rules {
 	public ClassicRules(){
-		this.board = new ClassicBoard();
+		
+	}
+	
+	public Board createBoard(){
+		return new ClassicBoard();
 	}
 	
 	public boolean isInCheck(Board b, Color c) {
@@ -24,9 +28,9 @@ public class ClassicRules extends Rules {
 		boolean check = false;
 		
 		kingLoop:
-		for ( int y = 0; y < board.tiles.length; y++){
-			for ( int x = 0; x < board.tiles.length; x++){
-				Piece p = board.getTile(new Coord(x,y)).curPiece;
+		for ( int y = 0; y < b.tiles.length; y++){
+			for ( int x = 0; x < b.tiles.length; x++){
+				Piece p = b.getTile(new Coord(x,y)).curPiece;
 				if ( p.name == PieceName.KING ){
 					king = p;
 					break kingLoop;
@@ -35,13 +39,13 @@ public class ClassicRules extends Rules {
 		}
 		
 		checkLoop:
-		for ( int y = 0; y < board.tiles.length; y++){
-			for ( int x = 0; x < board.tiles.length; x++){
-				Piece p = board.getTile(new Coord(x,y)).curPiece;
-				if(p != null){
-					ArrayList<Move> moves = this.listAvailableMoves(p);
+		for ( int y = 0; y < b.tiles.length; y++){
+			for ( int x = 0; x < b.tiles.length; x++){
+				Piece p = b.getTile(new Coord(x,y)).curPiece;
+				if(p != null && p.color != c ){
+					ArrayList<Move> moves = this.listAvailableMoves(p, b);
 					for(Move move : moves){
-						if ( move.coord == king.curTile.coord && move.isKillMove ){
+						if ( move.coord.equals(king.curTile.coord) && move.isKillMove ){
 							check = true;
 							break checkLoop;
 						}
@@ -54,16 +58,16 @@ public class ClassicRules extends Rules {
 	}
 	
 	public String movePiece(Piece p, Coord c, Color playersTurn, View view, Board board){
-		Board cloneB = this.board.clone();
+		Board cloneB = board.clone();
 		Tile t = cloneB.getTile(c);
 		boolean isValidMove = false;
 		Piece cloneP = cloneB.getTile(p.curTile.coord).curPiece;
-		ArrayList<Move> moves = this.listAvailableMoves(cloneP);
+		ArrayList<Move> moves = this.listAvailableMoves(cloneP, board);
 		for(Move move : moves){
 			if(move.coord.x == c.x && move.coord.y == c.y){
 				t.setPiece(cloneP);
 				t.curPiece.hasMoved = true;
-				cloneP = checkPromotion(cloneP, move, view);
+				cloneP = checkPromotion(cloneP, move, view, board);
 				isValidMove = true;
 				break;
 			}
@@ -73,7 +77,7 @@ public class ClassicRules extends Rules {
 		}
 		
 		if( !isInCheck(cloneB, playersTurn)){
-			this.board.set(cloneB);
+			board.set(cloneB);
 		}
 		else{
 			return "Invalid Move: This move leaves your king in check.";
@@ -82,12 +86,12 @@ public class ClassicRules extends Rules {
 		return null;
 	}
 	
-	public Piece checkPromotion(Piece p, Move move, View view){
+	public Piece checkPromotion(Piece p, Move move, View view, Board b){
 		
 		if( p.name == PieceName.PAWN ){
 			
 			if ( p.color == Color.WHITE ){
-				if ( move.coord.y == (board.tiles.length - 1) ){
+				if ( move.coord.y == (b.tiles.length - 1) ){
 					p.name = view.getPromotion();
 				}
 			}
@@ -102,29 +106,29 @@ public class ClassicRules extends Rules {
 		return p;
 	}
 	
-	public ArrayList<Move> listAvailableMoves(Piece p){
+	public ArrayList<Move> listAvailableMoves(Piece p, Board b){
 		ArrayList<Move> ret = new ArrayList<Move>();
 		int direction = p.color == Color.WHITE ? 1 : -1;
 		Coord c = p.curTile.coord.clone();
 		Tile t;
 		if (p.name == PieceName.PAWN){
-			t = this.board.getTile(c.x, c.y+(1*direction));
+			t = b.getTile(c.x, c.y+(1*direction));
 			if(t!=null && t.curPiece == null){
 				ret.add(p.createMove(t.coord.clone(),false));
 			}
 			if(!p.hasMoved){
-				t = this.board.getTile(c.x, c.y+(2*direction));
+				t = b.getTile(c.x, c.y+(2*direction));
 				if(t!=null && t.curPiece == null){
 					ret.add(p.createMove(t.coord.clone(),false));
 				}
 			}
 			
-			t = this.board.getTile(c.x+1, c.y+(1*direction));
+			t = b.getTile(c.x+1, c.y+(1*direction));
 			if(t!=null && t.curPiece != null){
 				ret.add(p.createMove(t.coord.clone()));
 			}
 			
-			t = this.board.getTile(c.x-1, c.y+(1*direction));
+			t = b.getTile(c.x-1, c.y+(1*direction));
 			if(t!=null && t.curPiece != null){
 				ret.add(p.createMove(t.coord.clone()));
 			}
@@ -136,7 +140,7 @@ public class ClassicRules extends Rules {
 					if (i == 0 && j == 0) { // can't move the king to it's current position
 						continue;
 					}
-					t = this.board.getTile(c.x + j, c.y + i);
+					t = b.getTile(c.x + j, c.y + i);
 					if (t != null) {
 						ret.add(p.createMove(t.coord.clone()));
 						
@@ -147,7 +151,7 @@ public class ClassicRules extends Rules {
 			// loop through the vertical, going up
 			int offset;
 			for (offset = 1;; offset++) {
-				t = this.board.getTile(c.x, c.y + offset);
+				t = b.getTile(c.x, c.y + offset);
 				if (t == null) {
 					break;
 				}
@@ -159,7 +163,7 @@ public class ClassicRules extends Rules {
 			
 			// loop through the vertical, going down
 			for (offset = -1;; offset--) {
-				t = this.board.getTile(c.x, c.y + offset);
+				t = b.getTile(c.x, c.y + offset);
 				if (t == null) {
 					break;
 				}
@@ -171,7 +175,7 @@ public class ClassicRules extends Rules {
 			
 			// loop through the horizontal, going left
 			for (offset = 1;; offset++) {
-				t = this.board.getTile(c.x + offset, c.y);
+				t = b.getTile(c.x + offset, c.y);
 				if (t == null) {
 					break;
 				}
@@ -183,7 +187,7 @@ public class ClassicRules extends Rules {
 			
 			// loop through the horizontal, going right
 			for (offset = -1;; offset--) {
-				t = this.board.getTile(c.x + offset, c.y);
+				t = b.getTile(c.x + offset, c.y);
 				if (t == null) {
 					break;
 				}
@@ -196,7 +200,7 @@ public class ClassicRules extends Rules {
 			// loop through the diagonal, going up and left
 			int offset;
 			for (offset = 1;; offset++) {
-				t = this.board.getTile(c.x + offset, c.y + offset);
+				t = b.getTile(c.x + offset, c.y + offset);
 				if (t == null) {
 					break;
 				}
@@ -207,7 +211,7 @@ public class ClassicRules extends Rules {
 			}
 			// loop through the diagonal, going up and right
 			for (offset = 1;; offset++) {
-				t = this.board.getTile(c.x - offset, c.y - offset);
+				t = b.getTile(c.x - offset, c.y - offset);
 				if (t == null) {
 				    break;
 				}
@@ -218,7 +222,7 @@ public class ClassicRules extends Rules {
 			}
 			// loop through the diagonal, going down and left
 			for (offset = 1;; offset++) {
-			    t = this.board.getTile(c.x + offset, c.y - offset);
+			    t = b.getTile(c.x + offset, c.y - offset);
 				if (t == null) {
 				   break;
 				}
@@ -229,7 +233,7 @@ public class ClassicRules extends Rules {
 			}
 			// loop through the diagonal, going down and right
 			for (offset = 1;; offset++) {
-			    t = this.board.getTile(c.x - offset, c.y + offset);
+			    t = b.getTile(c.x - offset, c.y + offset);
 				if (t == null) {
 				   break;
 				}
@@ -243,7 +247,7 @@ public class ClassicRules extends Rules {
 			// loop through the diagonal, going up and left
 			int offset;
 		    for (offset = 1;; offset++) {
-				t = this.board.getTile(c.x + offset, c.y + offset);
+				t = b.getTile(c.x + offset, c.y + offset);
 				if (t == null) {
 					break;
 				}
@@ -254,7 +258,7 @@ public class ClassicRules extends Rules {
 			}
 			// loop through the diagonal, going up and right
 			for (offset = 1;; offset++) {
-				t = this.board.getTile(c.x - offset, c.y - offset);
+				t = b.getTile(c.x - offset, c.y - offset);
 				if (t == null) {
 				    break;
 				}
@@ -265,7 +269,7 @@ public class ClassicRules extends Rules {
 			}
 			// loop through the diagonal, going down and left
 			for (offset = 1;; offset++) {
-			    t = this.board.getTile(c.x + offset, c.y - offset);
+			    t = b.getTile(c.x + offset, c.y - offset);
 				if (t == null) {
 					break;
 				}
@@ -276,7 +280,7 @@ public class ClassicRules extends Rules {
 			}
 			// loop through the diagonal, going down and right
 			for (offset = 1;; offset++) {
-			    t = this.board.getTile(c.x - offset, c.y + offset);
+			    t = b.getTile(c.x - offset, c.y + offset);
 				if (t == null) {
 				    break;
 				}
@@ -288,7 +292,7 @@ public class ClassicRules extends Rules {
 						
 			// loop through the vertical, going up
 			for (offset = 1;; offset++) {
-				t = this.board.getTile(c.x, c.y + offset);
+				t = b.getTile(c.x, c.y + offset);
 				if (t == null) {
 					break;
 				}
@@ -300,7 +304,7 @@ public class ClassicRules extends Rules {
 						
 			// loop through the vertical, going down
 			for (offset = -1;; offset--) {
-				t = this.board.getTile(c.x, c.y + offset);
+				t = b.getTile(c.x, c.y + offset);
 				if (t == null) {
 					break;
 				}
@@ -312,7 +316,7 @@ public class ClassicRules extends Rules {
 						
 			// loop through the horizontal, going left
 			for (offset = 1;; offset++) {
-				t = this.board.getTile(c.x + offset, c.y);
+				t = b.getTile(c.x + offset, c.y);
 				if (t == null) {
 					break;
 				}
@@ -324,7 +328,7 @@ public class ClassicRules extends Rules {
 						
 			// loop through the horizontal, going right
 			for (offset = -1;; offset--) {
-				t = this.board.getTile(c.x + offset, c.y);
+				t = b.getTile(c.x + offset, c.y);
 				if (t == null) {
 					break;
 				}
@@ -335,36 +339,36 @@ public class ClassicRules extends Rules {
 			}
 		}
 		else if (p.name == PieceName.KNIGHT) {
-			t = this.board.getTile(c.x + 1, c.y + 2);
+			t = b.getTile(c.x + 1, c.y + 2);
 			if (t != null) {
 				ret.add(p.createMove(t.coord.clone()));
 			}
-			t = this.board.getTile(c.x + 1, c.y - 2);
+			t = b.getTile(c.x + 1, c.y - 2);
 			if (t != null) {
 				ret.add(p.createMove(t.coord.clone()));
 			}
-			t = this.board.getTile(c.x - 1, c.y + 2);
+			t = b.getTile(c.x - 1, c.y + 2);
 			if (t != null) {
 				ret.add(p.createMove(t.coord.clone()));
 			}
-			t = this.board.getTile(c.x - 1, c.y - 2);
+			t = b.getTile(c.x - 1, c.y - 2);
 			if (t != null) {
 				ret.add(p.createMove(t.coord.clone()));
 			}
 			
-			t = this.board.getTile(c.x + 2, c.y + 1);
+			t = b.getTile(c.x + 2, c.y + 1);
 			if (t != null) {
 				ret.add(p.createMove(t.coord.clone()));
 			}
-			t = this.board.getTile(c.x + 2, c.y - 1);
+			t = b.getTile(c.x + 2, c.y - 1);
 			if (t != null) {
 				ret.add(p.createMove(t.coord.clone()));
 			}
-			t = this.board.getTile(c.x - 2, c.y + 1);
+			t = b.getTile(c.x - 2, c.y + 1);
 			if (t != null) {
 				ret.add(p.createMove(t.coord.clone()));
 			}
-			t = this.board.getTile(c.x - 2, c.y - 1);
+			t = b.getTile(c.x - 2, c.y - 1);
 			if (t != null) {
 				ret.add(p.createMove(t.coord.clone()));
 			}
@@ -374,7 +378,7 @@ public class ClassicRules extends Rules {
 		Iterator<Move> i = ret.iterator();
 		while (i.hasNext()) {
 			Move x = i.next();
-			if (this.board.getTile(x.coord).curPiece != null && this.board.getTile(x.coord).curPiece.color == p.color) {
+			if (b.getTile(x.coord).curPiece != null && b.getTile(x.coord).curPiece.color == p.color) {
 				i.remove();
 			}
 		}

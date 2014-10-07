@@ -18,4 +18,8 @@ public class Coord extends Point{
 	public Coord clone(){
 		return new Coord(this.x, this.y);
 	}
+	
+	public boolean equals( Coord c ){
+		return c.x == this.x && c.y == this.y;
+	}
 }

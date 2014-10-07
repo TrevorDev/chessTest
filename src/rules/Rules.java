@@ -11,8 +11,10 @@ import chessTest.Piece;
 import chessTest.View;
 
 public abstract class Rules {
-	public Board board;
-	public ArrayList<Move> listAvailableMoves(Piece p){
+	public Board createBoard(){
+		return null;
+	}
+	public ArrayList<Move> listAvailableMoves(Piece p, Board b){
 		return null;
 	}
 	public String movePiece(Piece p, Coord c, Color playersTurn, View view, Board b){
