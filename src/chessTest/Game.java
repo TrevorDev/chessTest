@@ -37,7 +37,13 @@ public class Game {
 					continue;
 				}
 				//TODO HANDLE BAD RETURN FROM MOVEPIECE
-				rules.movePiece(select, move[1], playersTurn, v);
+				String err = rules.movePiece(select, move[1], playersTurn, v, rules.board);
+				
+				if ( err != null ){
+					invalidMove = true;
+					v.displayMsg(err);
+				}
+				
 			} while(invalidMove);
 			
 			

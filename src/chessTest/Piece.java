@@ -18,4 +18,13 @@ public class Piece {
 	public Move createMove(Coord x, boolean isKillMove){
 		return new Move(new Pair<Piece, Coord>(this, x), isKillMove);
 	}
+	
+	public Piece clone(){
+		Piece p = new Piece(this.name, this.color);
+		p.curTile = null;
+		p.hasMoved = this.hasMoved;
+		p.inCheck = this.inCheck;
+		return p;
+		
+	}
 }

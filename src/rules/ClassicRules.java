@@ -38,11 +38,13 @@ public class ClassicRules extends Rules {
 		for ( int y = 0; y < board.tiles.length; y++){
 			for ( int x = 0; x < board.tiles.length; x++){
 				Piece p = board.getTile(new Coord(x,y)).curPiece;
-				ArrayList<Move> moves = this.listAvailableMoves(p);
-				for(Move move : moves){
-					if ( move.coord == king.curTile.coord && move.isKillMove ){
-						check = true;
-						break checkLoop;
+				if(p != null){
+					ArrayList<Move> moves = this.listAvailableMoves(p);
+					for(Move move : moves){
+						if ( move.coord == king.curTile.coord && move.isKillMove ){
+							check = true;
+							break checkLoop;
+						}
 					}
 				}
 			}
@@ -51,17 +53,33 @@ public class ClassicRules extends Rules {
 		return check;
 	}
 	
-	public void movePiece(Piece p, Coord c, Color playersTurn, View view){
-		Tile t = this.board.getTile(c);
-		ArrayList<Move> moves = this.listAvailableMoves(p);
+	public String movePiece(Piece p, Coord c, Color playersTurn, View view, Board board){
+		Board cloneB = this.board.clone();
+		Tile t = cloneB.getTile(c);
+		boolean isValidMove = false;
+		Piece cloneP = cloneB.getTile(p.curTile.coord).curPiece;
+		ArrayList<Move> moves = this.listAvailableMoves(cloneP);
 		for(Move move : moves){
 			if(move.coord.x == c.x && move.coord.y == c.y){
-				t.setPiece(p);
+				t.setPiece(cloneP);
 				t.curPiece.hasMoved = true;
-				p = checkPromotion(p, move, view);
+				cloneP = checkPromotion(cloneP, move, view);
+				isValidMove = true;
 				break;
 			}
 		}
+		if ( !isValidMove ){
+			return "Invalid Move: This piece cannot be moved to your desired tile.";
+		}
+		
+		if( !isInCheck(cloneB, playersTurn)){
+			this.board.set(cloneB);
+		}
+		else{
+			return "Invalid Move: This move leaves your king in check.";
+		}
+		
+		return null;
 	}
 	
 	public Piece checkPromotion(Piece p, Move move, View view){

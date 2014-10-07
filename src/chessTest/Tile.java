@@ -9,6 +9,16 @@ public class Tile {
 		this.coord = c;
 	}
 	
+	public Tile clone(){
+		Tile ret = new Tile(this.coord.clone(), null);
+		if(this.curPiece != null){
+			ret.curPiece = this.curPiece.clone();
+			ret.curPiece.curTile = ret;
+		}
+		
+		return ret;
+	}
+	
 	public void setPiece(Piece p){
 		if(p.curTile!=null){
 			p.curTile.curPiece=null;

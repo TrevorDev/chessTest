@@ -15,8 +15,8 @@ public abstract class Rules {
 	public ArrayList<Move> listAvailableMoves(Piece p){
 		return null;
 	}
-	public void movePiece(Piece p, Coord c, Color playersTurn, View view){
-		
+	public String movePiece(Piece p, Coord c, Color playersTurn, View view, Board b){
+		return null;
 	}
 	public GameState checkGameOver(){
 		return GameState.IN_PROGRESS;
