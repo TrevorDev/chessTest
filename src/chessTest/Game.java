@@ -30,9 +30,17 @@ public class Game {
 				}
 				
 				//check if first coord is a piece
-				Piece select = rules.board.getTile(move[0]).curPiece;
+				Piece select = null;
+				try {
+					select = rules.board.getTile(move[0]).curPiece;
+				} catch (NullPointerException e) {
+					//if getTile returns null when a user enters an invalid coordinate like W2T4
+					v.displayMsg("Invalid coordinate.");
+					invalidMove = true;
+					continue;
+				}
 				if(select==null || select.color != playersTurn){
-					v.displayMsg("No peice of your color selected.");
+					v.displayMsg("No piece of your color selected.");
 					invalidMove = true;
 					continue;
 				}
