@@ -36,4 +36,23 @@ public class LosAlamosBoard extends Board{
 		this.tiles[5][4].setPiece(new Piece(PieceName.KNIGHT, Color.BLACK));
 		this.tiles[5][5].setPiece(new Piece(PieceName.ROOK, Color.BLACK));
 	}
+	
+	public Board clone(){
+		Board clone = new LosAlamosBoard();
+		for(int y = 0;y<this.tiles.length;y++){
+			for(int x = 0;x<this.tiles.length;x++){
+				Tile t = this.getTile(x, y);
+				clone.tiles[y][x] = t.clone();
+			}
+		}
+		return clone;
+	}
+	
+	public void set(Board b){
+		for(int y = 0;y<b.tiles.length;y++){
+			for(int x = 0;x<b.tiles.length;x++){
+				this.tiles[y][x] = b.getTile(x, y).clone();
+			}
+		}
+	}
 }
