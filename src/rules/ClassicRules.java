@@ -8,6 +8,7 @@ import boards.ClassicBoard;
 import chessTest.Color;
 import chessTest.Coord;
 import chessTest.Move;
+import chessTest.Pair;
 import chessTest.Piece;
 import chessTest.PieceName;
 import chessTest.Tile;
@@ -57,6 +58,25 @@ public class ClassicRules extends Rules {
 		return check;
 	}
 	
+	//returns rook who have not moved in same row as c on the "left" side 
+	public Piece findCastleRook(Coord c, Board board, boolean left){
+		Coord nextC = c.clone();
+		nextC.x += left?-1:1;
+		Tile t = board.getTile(nextC);
+		if(t == null){
+			return null;
+		}
+		Piece p = t.curPiece;
+		if(p!=null){
+			if(p.name == PieceName.ROOK && !p.hasMoved){
+				return p;
+			}else{
+				return null;
+			}
+		}
+		return findCastleRook(nextC, board, left);
+	}
+	
 	public String movePiece(Piece p, Coord c, Color playersTurn, View view, Board board){
 		Board cloneB = board.clone();
 		Tile t = cloneB.getTile(c);
@@ -65,8 +85,12 @@ public class ClassicRules extends Rules {
 		ArrayList<Move> moves = this.listAvailableMoves(cloneP, board);
 		for(Move move : moves){
 			if(move.coord.x == c.x && move.coord.y == c.y){
-				t.setPiece(cloneP);
-				t.curPiece.hasMoved = true;
+				for(Pair<Piece, Coord> subMove:move.subMoves){
+					t = cloneB.getTile(subMove.getElement1());
+					Piece cloneBP = cloneB.getTile(subMove.getElement0().curTile.coord).curPiece;
+					t.setPiece(cloneBP);
+					cloneBP.hasMoved = true;
+				}
 				cloneP = checkPromotion(cloneP, move, view, board);
 				isValidMove = true;
 				break;
@@ -105,7 +129,7 @@ public class ClassicRules extends Rules {
 		
 		return p;
 	}
-	
+	//TODO: this function is way to long break it up plox
 	public ArrayList<Move> listAvailableMoves(Piece p, Board b){
 		ArrayList<Move> ret = new ArrayList<Move>();
 		int direction = p.color == Color.WHITE ? 1 : -1;
@@ -146,6 +170,45 @@ public class ClassicRules extends Rules {
 						
 					}
 				}
+			}
+			//castling
+			if(!p.hasMoved){
+				boolean left = false;
+				//add castle left and right to ret
+				do{
+					left = !left;
+					Piece rook = findCastleRook(p.curTile.coord, b, left);
+					if(rook != null){
+						//check if any of squares king touches puts him in check
+							Board clonedB = b.clone();
+							if(this.isInCheck(clonedB, p.color)){
+								break;
+							}
+							Piece cloneKing = clonedB.getTile(p.curTile.coord).curPiece;
+							Coord castleMove = cloneKing.curTile.coord;
+							castleMove.x+=left?-1:1;
+							Tile castleMoveTile = clonedB.getTile(castleMove);
+							castleMoveTile.setPiece(cloneKing);
+							if(this.isInCheck(clonedB, p.color)){
+								break;
+							}
+							castleMove.x+=left?-1:1;
+							castleMoveTile = clonedB.getTile(castleMove);
+							castleMoveTile.setPiece(cloneKing);
+							if(this.isInCheck(clonedB, p.color)){
+								break;
+							}
+						
+						//Add left or right castle move
+							Coord kingMove = p.curTile.coord.clone();
+							kingMove.x+=left?-2:2;
+							Coord rookMove = p.curTile.coord.clone();
+							rookMove.x+=left?-1:1;
+							Move mo = p.createMove(kingMove, false);
+							mo.addSubMove(new Pair<Piece, Coord>(rook, rookMove));
+							ret.add(mo);
+					}
+				}while(left);
 			}
 		} else if (p.name == PieceName.ROOK) {
 			// loop through the vertical, going up

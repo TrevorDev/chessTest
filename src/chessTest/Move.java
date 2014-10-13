@@ -6,7 +6,7 @@ public class Move {
 	
 	public Coord coord = null;
 	public boolean isKillMove = true;
-	ArrayList<Pair<Piece, Coord>> subMoves;
+	public ArrayList<Pair<Piece, Coord>> subMoves;
 	
 	public Move(Pair<Piece, Coord> x){
 		this(x,true);
