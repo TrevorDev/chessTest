@@ -7,6 +7,7 @@ import boards.Board;
 import boards.ClassicBoard;
 import chessTest.Color;
 import chessTest.Coord;
+import chessTest.GameState;
 import chessTest.Move;
 import chessTest.Pair;
 import chessTest.Piece;
@@ -23,25 +24,73 @@ public class ClassicRules extends Rules {
 		return new ClassicBoard();
 	}
 
-	public boolean isInCheckMate(Board b, Color c) {
+	// TODO: add Draw conditions
+	public GameState checkGameOver(Board b) {
+		if (isDraw())
+			return GameState.DRAW;
+		else if (isInCheckmate(b, Color.WHITE))
+			return GameState.TWO_WIN;
+		else if (isInCheckmate(b, Color.BLACK))
+			return GameState.ONE_WIN;
+		return GameState.IN_PROGRESS;
+	}
+
+	public boolean isDraw() {
 		return false;
 	}
-	
+
+	public boolean isInCheckmate(Board b, Color c) {
+
+		boolean isCheckmate = true;
+
+		//Only checks if the player is currently in check
+		if (isInCheck(b, c)) {
+			Board bClone = b.clone();
+			
+			//Grabs all players pieces to check if a move can save them
+			checkMateLoop: for (int y = 0; y < bClone.tiles.length; y++) {
+				for (int x = 0; x < bClone.tiles.length; x++) {
+					
+					Piece p = bClone.getTile(new Coord(x, y)).curPiece;
+					if (p != null && p.color == c) {
+						ArrayList<Move> moves = listAvailableMoves(p,bClone);
+						for (Move m: moves) {
+							movePiece(p, m.coord, c, null, bClone);
+							if (!isInCheck(bClone, c)) {
+								isCheckmate = false;
+								break checkMateLoop;
+							}
+							//reset cloned board;
+							bClone = b.clone();
+						}
+					}
+				}
+			}
+		}
+		else {
+			return false;
+		}
+
+		return isCheckmate;
+	}
+
 	public boolean isInCheck(Board b, Color c) {
 
 		Piece king = null;
 		boolean check = false;
 
+		// Find King piece for current player
 		kingLoop: for (int y = 0; y < b.tiles.length; y++) {
 			for (int x = 0; x < b.tiles.length; x++) {
 				Piece p = b.getTile(new Coord(x, y)).curPiece;
-				if (p != null && p.name == PieceName.KING) {
+				if (p != null && p.name == PieceName.KING && p.color == c) {
 					king = p;
 					break kingLoop;
 				}
 			}
 		}
 
+		// Check if King is in check
 		checkLoop: for (int y = 0; y < b.tiles.length; y++) {
 			for (int x = 0; x < b.tiles.length; x++) {
 				Piece p = b.getTile(new Coord(x, y)).curPiece;
@@ -116,7 +165,7 @@ public class ClassicRules extends Rules {
 
 	public Piece checkPromotion(Piece p, Move move, View view, Board b) {
 
-		if (p.name == PieceName.PAWN) {
+		if (view != null && p.name == PieceName.PAWN) {
 
 			if (p.color == Color.WHITE) {
 				if (move.coord.y == (b.tiles.length - 1)) {

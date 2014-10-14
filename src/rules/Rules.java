@@ -11,16 +11,13 @@ import chessTest.Piece;
 import chessTest.View;
 
 public abstract class Rules {
-	public Board createBoard(){
-		return null;
-	}
-	public ArrayList<Move> listAvailableMoves(Piece p, Board b){
-		return null;
-	}
-	public String movePiece(Piece p, Coord c, Color playersTurn, View view, Board b){
-		return null;
-	}
-	public GameState checkGameOver(){
-		return GameState.IN_PROGRESS;
-	}
+
+	public abstract Board createBoard();
+
+	public abstract ArrayList<Move> listAvailableMoves(Piece p, Board b);
+
+	public abstract String movePiece(Piece p, Coord c, Color playersTurn,
+			View view, Board b);
+
+	public abstract GameState checkGameOver(Board b);
 }

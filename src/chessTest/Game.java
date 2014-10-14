@@ -1,14 +1,14 @@
 package chessTest;
 
 import boards.Board;
-import rules.ClassicRules;
+import rules.LosAlamosRules;
 import rules.Rules;
 
 public class Game {
 	public static Rules rules;
 	public static Board board;
 	public static void main(String[] args) {
-		rules = new ClassicRules();
+		rules = new LosAlamosRules();
 		board = rules.createBoard();
 		View v = new TextView(board);
 		v.displayMsg("Welcome to chess!");
@@ -62,9 +62,21 @@ public class Game {
 			playersTurn = (playersTurn == Color.WHITE) ? Color.BLACK : Color.WHITE;
 			
 			
-			GameState g = rules.checkGameOver();
+			GameState g = rules.checkGameOver(board);
 			if(g!=GameState.IN_PROGRESS){
 				gameOver=true;
+			}
+			else if (g == GameState.DRAW) {
+				v.drawBoard();
+				v.displayMsg("Draw game!");
+			}
+			else if (g == GameState.ONE_WIN) {
+				v.drawBoard();
+				v.displayMsg("Player one (White) Wins!"); 
+			}
+			else if (g == GameState.TWO_WIN) {
+				v.drawBoard();
+				v.displayMsg("Player two (Black) Wins!");
 			}
 		}
 	}
