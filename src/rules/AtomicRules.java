@@ -51,7 +51,8 @@ public class AtomicRules extends ClassicRules {
 									&& c.x + x < cloneB.tiles.length 
 									&& c.y + y < cloneB.tiles[0].length) {
 								t = cloneB.getTile(c.x + x, c.y + y);
-								if (t.curPiece != null && t.curPiece.name != PieceName.PAWN) {
+								if ((t.curPiece != null && t.curPiece.name != PieceName.PAWN)
+										|| (x == 0 && y == 0)) {
 									Piece blankP = new Piece(null, null);
 									t.setPiece(blankP);
 								}
