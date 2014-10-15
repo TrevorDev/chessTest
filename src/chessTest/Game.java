@@ -1,6 +1,7 @@
 package chessTest;
 
 import boards.Board;
+import rules.AtomicRules;
 import rules.LosAlamosRules;
 import rules.Rules;
 
@@ -8,7 +9,7 @@ public class Game {
 	public static Rules rules;
 	public static Board board;
 	public static void main(String[] args) {
-		rules = new LosAlamosRules();
+		rules = new AtomicRules();
 		board = rules.createBoard();
 		View v = new TextView(board);
 		v.displayMsg("Welcome to chess!");

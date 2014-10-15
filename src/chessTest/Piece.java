@@ -6,6 +6,7 @@ public class Piece {
 	public Tile curTile;
 	public boolean hasMoved;
 	public boolean inCheck;
+	
 	public Piece(PieceName name, Color color){
 		this.name = name;
 		this.color = color;
