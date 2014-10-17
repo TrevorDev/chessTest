@@ -17,8 +17,6 @@ public class AtomicRules extends ClassicRules {
 		
 	}
 	
-	//TODO: remove moves that can kill your own king
-	//TODO: check if you kill enemy king via a BOOM!
 	public String movePiece(Piece p, Coord c, Color playersTurn, View view,
 			Board board) {
 		Board cloneB = board.clone();
@@ -76,5 +74,46 @@ public class AtomicRules extends ClassicRules {
 		}
 
 		return null;
+	}
+
+	public boolean isInCheck(Board b, Color c) {
+
+		Piece king = null;
+		boolean check = false;
+
+		// Find King piece for current player
+		kingLoop: for (int y = 0; y < b.tiles.length; y++) {
+			for (int x = 0; x < b.tiles.length; x++) {
+				Piece p = b.getTile(new Coord(x, y)).curPiece;
+				if (p != null && p.name == PieceName.KING && p.color == c) {
+					king = p;
+					break kingLoop;
+				}
+			}
+		}
+		
+		//King was killed. Checkmate will return true if check is always true
+		if (king == null) {
+			return true;
+		}
+
+		// Check if King is in check
+		checkLoop: for (int y = 0; y < b.tiles.length; y++) {
+			for (int x = 0; x < b.tiles.length; x++) {
+				Piece p = b.getTile(new Coord(x, y)).curPiece;
+				if (p != null && p.color != c) {
+					ArrayList<Move> moves = this.listAvailableMoves(p, b);
+					for (Move move : moves) {
+						if (move.coord.equals(king.curTile.coord)
+								&& move.isKillMove) {
+							check = true;
+							break checkLoop;
+						}
+					}
+				}
+			}
+		}
+
+		return check;
 	}
 }
