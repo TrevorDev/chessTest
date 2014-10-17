@@ -29,7 +29,7 @@ public class ClassicRules extends Rules {
 
 	// TODO: add Draw conditions
 	public GameState checkGameOver(Board b) {
-		if (isDraw())
+		if (isDraw(b))
 			return GameState.DRAW;
 		else if (isInCheckmate(b, Color.WHITE))
 			return GameState.TWO_WIN;
@@ -38,8 +38,47 @@ public class ClassicRules extends Rules {
 		return GameState.IN_PROGRESS;
 	}
 
-	public boolean isDraw() {
-		return nBlackKingMoves >= 21 || nWhiteKingMoves >= 21;
+	public boolean isDraw(Board b) {
+		return nBlackKingMoves >= 21 || nWhiteKingMoves >= 21 || isInStaleMate(b, Color.WHITE) || isInStaleMate(b, Color.BLACK);
+	}
+	
+	public boolean loopOverAllMoves(Board b, Color c) {
+		
+		boolean cannotMove = true;
+		
+		Board bClone = b.clone();
+		
+		//Grabs all players pieces to check if a move can save them
+		checkMateLoop: for (int y = 0; y < bClone.tiles.length; y++) {
+			for (int x = 0; x < bClone.tiles.length; x++) {
+				
+				Piece p = bClone.getTile(new Coord(x, y)).curPiece;
+				if (p != null && p.color == c) {
+					ArrayList<Move> moves = listAvailableMoves(p,bClone);
+					for (Move m: moves) {
+						movePiece(p, m.coord, c, null, bClone);
+						if (!isInCheck(bClone, c)) {
+							cannotMove = false;
+							break checkMateLoop;
+						}
+						//reset cloned board;
+						bClone = b.clone();
+					}
+				}
+			}
+		}
+		
+		return cannotMove;
+	}
+	
+	//Stalemate condition #2: No valid moves possible without putting the king in check
+	public boolean isInStaleMate(Board b, Color c) {
+		
+		boolean isStalemate = true;
+		
+		isStalemate = loopOverAllMoves(b, c);
+		
+		return isStalemate;
 	}
 
 	public boolean isInCheckmate(Board b, Color c) {
@@ -48,27 +87,7 @@ public class ClassicRules extends Rules {
 
 		//Only checks if the player is currently in check
 		if (isInCheck(b, c)) {
-			Board bClone = b.clone();
-			
-			//Grabs all players pieces to check if a move can save them
-			checkMateLoop: for (int y = 0; y < bClone.tiles.length; y++) {
-				for (int x = 0; x < bClone.tiles.length; x++) {
-					
-					Piece p = bClone.getTile(new Coord(x, y)).curPiece;
-					if (p != null && p.color == c) {
-						ArrayList<Move> moves = listAvailableMoves(p,bClone);
-						for (Move m: moves) {
-							movePiece(p, m.coord, c, null, bClone);
-							if (!isInCheck(bClone, c)) {
-								isCheckmate = false;
-								break checkMateLoop;
-							}
-							//reset cloned board;
-							bClone = b.clone();
-						}
-					}
-				}
-			}
+			isCheckmate = loopOverAllMoves(b, c);
 		}
 		else {
 			return false;
