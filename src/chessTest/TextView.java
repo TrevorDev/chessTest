@@ -7,8 +7,12 @@ import boards.Board;
 public class TextView implements View {
 	Board board;
 	static Scanner in = new Scanner(System.in);
-	public TextView(Board b){
-		this.board=b;
+	public TextView(){
+		this.board= null;
+	}
+	
+	public void initTextView(Board b){
+		this.board = b;
 	}
 	
 	public void printDashLine(){
@@ -94,6 +98,31 @@ public class TextView implements View {
 		}catch(Exception e){
 			return null;
 		}
+	}
+	
+	public int getGameType() {
+		
+		String input = "";
+		int gameType = -1;
+		
+		System.out.println("Please Enter the number corresponding to the Chess Type you would like to play");
+		System.out.println("1. Classic Chess");
+		System.out.println("2. Los Alamos Chess");
+		System.out.println("3. Atomic Chess");
+		
+		input = in.nextLine();
+		input = input.replaceAll("[^0-9]", "");
+		
+		//clear screen
+		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		
+		if(input.length()!=1){
+			return -1;
+		}
+		
+		gameType = Integer.parseInt(input);
+		
+		return gameType;
 	}
 	
 	public Coord createCoord(char alpha, char num) throws Exception{

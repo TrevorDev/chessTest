@@ -2,16 +2,29 @@ package chessTest;
 
 import boards.Board;
 import rules.AtomicRules;
+import rules.ClassicRules;
 import rules.LosAlamosRules;
 import rules.Rules;
 
 public class Game {
 	public static Rules rules;
 	public static Board board;
+
 	public static void main(String[] args) {
-		rules = new AtomicRules();
+		
+		View v = new TextView();
+		int gameType = 0;
+		
+		//Get user's chosen game type
+		while (gameType != 1 && gameType != 2 && gameType != 3) {
+			gameType = v.getGameType();
+		}
+		
+		//Get desired game type this includes the correct rules and board
+		rules = getRules(gameType);
 		board = rules.createBoard();
-		View v = new TextView(board);
+		v.initTextView(board);
+		
 		v.displayMsg("Welcome to chess!");
 		boolean gameOver = false;
 		Color playersTurn = Color.WHITE;
@@ -80,6 +93,23 @@ public class Game {
 				v.displayMsg("Player two (Black) Wins!");
 			}
 		}
+	}
+	
+	public static Rules getRules(int choice){
+		 
+		Rules rules = null;
+		
+		if( choice == 3 ){
+			rules = new AtomicRules();
+		}
+		else if ( choice == 2){
+			rules = new LosAlamosRules();
+		}
+		else{
+			rules = new ClassicRules();
+		}
+		
+		return rules;
 	}
 
 }

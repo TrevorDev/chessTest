@@ -28,4 +28,16 @@ public class GUIView implements View{
 		return null;
 	}
 
+	@Override
+	public void initTextView(Board b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getGameType() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
