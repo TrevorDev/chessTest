@@ -16,6 +16,9 @@ import chessTest.Tile;
 import chessTest.View;
 
 public class ClassicRules extends Rules {
+	
+	private int nBlackKingMoves = 0, nWhiteKingMoves = 0;
+	
 	public ClassicRules() {
 
 	}
@@ -36,7 +39,7 @@ public class ClassicRules extends Rules {
 	}
 
 	public boolean isDraw() {
-		return false;
+		return nBlackKingMoves >= 21 || nWhiteKingMoves >= 21;
 	}
 
 	public boolean isInCheckmate(Board b, Color c) {
@@ -166,6 +169,34 @@ public class ClassicRules extends Rules {
 			board.set(cloneB);
 		} else {
 			return "Invalid Move: This move leaves your king in check.";
+		}
+		
+		// stalemate condition #1: The king as the only colour of its piece moves 21 times
+		if (p.name == PieceName.KING) { // we're moving the king
+			
+			for (int x = 0; x < board.tiles[0].length; x++) {
+				for (int y = 0; y < board.tiles.length; y++) {
+					Tile tile = board.getTile(x, y);
+					Piece piece = tile.curPiece;
+					if (piece != null && piece.color == p.color && piece.name != PieceName.KING) {
+						return null;
+					}
+				}
+			}
+			
+			
+		    if (p.color == Color.WHITE) {
+		    	nWhiteKingMoves++;
+		    	if (nWhiteKingMoves >= 21) {
+		    		return "Stalemate! The white King has moved 21 times as the only white piece!";
+		    	}
+		    }
+		    else {
+		    	nBlackKingMoves++;
+		    	if (nBlackKingMoves >= 21) {
+		    		return "Stalemate! The black King has moved 21 times as the only white piece!";
+		    	}
+		    }
 		}
 
 		return null;
