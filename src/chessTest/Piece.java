@@ -6,6 +6,7 @@ public class Piece {
 	public Tile curTile;
 	public boolean hasMoved;
 	public boolean inCheck;
+	public boolean enPassantKillable = false;
 	
 	public Piece(PieceName name, Color color){
 		this.name = name;
@@ -25,6 +26,7 @@ public class Piece {
 		p.curTile = null;
 		p.hasMoved = this.hasMoved;
 		p.inCheck = this.inCheck;
+		p.enPassantKillable = this.enPassantKillable;
 		return p;
 		
 	}

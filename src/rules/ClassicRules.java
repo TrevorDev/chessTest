@@ -139,10 +139,18 @@ public class ClassicRules extends Rules {
 		for (Move move : moves) {
 			if (move.coord.x == c.x && move.coord.y == c.y) {
 				for (Pair<Piece, Coord> subMove : move.subMoves) {
+					if(subMove.getElement1() == null){
+						cloneB.getTile(subMove.getElement0().curTile.coord).curPiece = null;
+						continue;
+					}
+					
+					
 					t = cloneB.getTile(subMove.getElement1());
-					Piece cloneBP = cloneB
-							.getTile(subMove.getElement0().curTile.coord).curPiece;
+					Piece cloneBP = cloneB.getTile(subMove.getElement0().curTile.coord).curPiece;
 					t.setPiece(cloneBP);
+					if(move.pawnMoveTwo){
+						cloneBP.enPassantKillable = true;
+					}
 					cloneBP.hasMoved = true;
 				}
 				cloneP = checkPromotion(cloneP, move, view, board);
@@ -224,10 +232,13 @@ public class ClassicRules extends Rules {
 		if (!p.hasMoved) {
 			t = b.getTile(c.x, c.y + (2 * direction));
 			if (t != null && t.curPiece == null) {
-				ret.add(p.createMove(t.coord.clone(), false));
+				Move m = p.createMove(t.coord.clone(), false);
+				m.pawnMoveTwo = true;
+				ret.add(m);
 			}
 		}
 
+		//capture moves
 		t = b.getTile(c.x + 1, c.y + (1 * direction));
 		if (t != null && t.curPiece != null) {
 			ret.add(p.createMove(t.coord.clone()));
@@ -237,6 +248,35 @@ public class ClassicRules extends Rules {
 		if (t != null && t.curPiece != null) {
 			ret.add(p.createMove(t.coord.clone()));
 		}
+		
+		//enpassant moves
+		t = b.getTile(c.x - 1, c.y + (0 * direction));
+		if (t != null && t.curPiece != null) {
+			if(t.curPiece.enPassantKillable){
+				t = b.getTile(c.x - 1, c.y + (1 * direction));
+				if (t != null && t.curPiece == null) {
+					Move m = p.createMove(t.coord.clone());
+					t = b.getTile(c.x - 1, c.y + (0 * direction));
+					m.addSubMove(new Pair<Piece, Coord>(t.curPiece, null));
+					ret.add(m);
+				}
+			}
+		}
+		
+		t = b.getTile(c.x + 1, c.y + (0 * direction));
+		if (t != null && t.curPiece != null) {
+			if(t.curPiece.enPassantKillable){
+				t = b.getTile(c.x + 1, c.y + (1 * direction));
+				if (t != null && t.curPiece == null) {
+					Move m = p.createMove(t.coord.clone());
+					t = b.getTile(c.x + 1, c.y + (0 * direction));
+					m.addSubMove(new Pair<Piece, Coord>(t.curPiece, null));
+					ret.add(m);
+				}
+			}
+		}
+		
+		
 	}
 
 	public void addKingMoves(ArrayList<Move> ret, int direction, Coord c,
