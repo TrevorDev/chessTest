@@ -90,18 +90,16 @@ public class Game {
 				GameState g = rules.checkGameOver(board);
 				if(g!=GameState.IN_PROGRESS){
 					gameOver=true;
-				}
-				else if (g == GameState.DRAW) {
 					v.drawBoard();
-					v.displayMsg("Draw game!");
-				}
-				else if (g == GameState.ONE_WIN) {
-					v.drawBoard();
-					v.displayMsg("Player one (White) Wins!"); 
-				}
-				else if (g == GameState.TWO_WIN) {
-					v.drawBoard();
-					v.displayMsg("Player two (Black) Wins!");
+					if (g == GameState.DRAW) {
+						v.displayMsg("Draw game!");
+					}
+					else if (g == GameState.ONE_WIN) {
+						v.displayMsg("Player one (White) Wins!"); 
+					}
+					else if (g == GameState.TWO_WIN) {
+						v.displayMsg("Player two (Black) Wins!");
+					}
 				}
 			}
 		}
