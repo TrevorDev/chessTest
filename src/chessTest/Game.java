@@ -36,15 +36,15 @@ public class Game {
 					invalidMove = false;
 					v.drawBoard();
 					if (playersTurn == Color.WHITE) {
-						v.displayMsg("Whites turn");
+						v.displayMsg("White's turn");
 					}else{
-						v.displayMsg("Blacks turn");
+						v.displayMsg("Black's turn");
 					}
 					
 					Coord[] move = v.getMove();
 					
 					if(move==null) {
-						v.displayMsg("Invalid input. Enter you're move eg(A2,A3), or q to quit");
+						v.displayMsg("Invalid input. Enter your move eg(A2,A3), or q to quit");
 						invalidMove = true;
 						continue;
 					}
