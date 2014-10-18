@@ -73,7 +73,7 @@ public class TextView implements View {
 
 	@Override
 	public Coord[] getMove() {
-		System.out.println("Enter you're move eg(A2,A3)");
+		System.out.println("Enter you're move eg(A2,A3), or q to quit");
 		String input = "";
 		input = in.nextLine();
 		input = input.toLowerCase();
@@ -81,6 +81,12 @@ public class TextView implements View {
 		
 		//clear screen
 		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		
+		if (input.equals("q")) {
+			Coord[] ret = new Coord[1];
+			ret[0] = new Coord(-1, -1);
+			return ret; 
+		}
 		
 		if(input.length()!=4){
 			return null;
