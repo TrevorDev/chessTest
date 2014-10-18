@@ -42,6 +42,12 @@ public class Game {
 					}
 					
 					Coord[] move = v.getMove();
+					
+					if(move==null) {
+						v.displayMsg("Invalid input. Enter you're move eg(A2,A3), or q to quit");
+						invalidMove = true;
+						continue;
+					}
 					if (move.length == 1) {
 						if (playersTurn == Color.WHITE) {
 							v.displayMsg("Player two (Black) Wins!"); 
@@ -49,11 +55,6 @@ public class Game {
 							v.displayMsg("Player one (White) Wins!"); 
 						}
 						continue mainGameLoop;
-					}
-					if(move==null) {
-						v.displayMsg("Invalid input. Enter you're move eg(A2,A3), or q to quit");
-						invalidMove = true;
-						continue;
 					}
 					
 					//check if first coord is a piece
