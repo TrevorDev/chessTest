@@ -227,13 +227,13 @@ public class ClassicRules extends Rules {
 
 			if (p.color == Color.WHITE) {
 				if (move.coord.y == (b.tiles.length - 1)) {
-					p.name = view.getPromotion();
+					p.name = view.getPromotion(promotionChoices(view));
 				}
 			}
 
 			if (p.color == Color.BLACK) {
 				if (move.coord.y == 0) {
-					p.name = view.getPromotion();
+					p.name = view.getPromotion(promotionChoices(view));
 				}
 			}
 		}
@@ -624,5 +624,23 @@ public class ClassicRules extends Rules {
 		if (t != null) {
 			ret.add(p.createMove(t.coord.clone()));
 		}
+	}
+
+	public ArrayList<Pair<Character,PieceName>> promotionChoices(View v) {
+		ArrayList<Pair<Character,PieceName>> pieceChoices = new ArrayList<Pair<Character,PieceName>>();
+		pieceChoices.add(new Pair<Character,PieceName>('r', PieceName.ROOK));
+		pieceChoices.add(new Pair<Character,PieceName>('b', PieceName.BISHOP));
+		pieceChoices.add(new Pair<Character,PieceName>('n', PieceName.KNIGHT));
+		pieceChoices.add(new Pair<Character,PieceName>('q', PieceName.QUEEN));
+		
+		if (v != null) {
+			v.displayMsg("Promotion choices are:");
+			v.displayMsg("r - rook");
+			v.displayMsg("b - bishop");
+			v.displayMsg("n - knight");
+			v.displayMsg("q - queen");
+		}
+		
+		return pieceChoices;
 	}
 }

@@ -4,8 +4,11 @@ import java.util.ArrayList;
 
 import chessTest.Coord;
 import chessTest.Move;
+import chessTest.Pair;
 import chessTest.Piece;
+import chessTest.PieceName;
 import chessTest.Tile;
+import chessTest.View;
 import boards.Board;
 import boards.LosAlamosBoard;
 
@@ -61,5 +64,21 @@ public class LosAlamosRules extends ClassicRules {
 				}
 			}
 		}
+	}
+	
+	public ArrayList<Pair<Character,PieceName>> promotionChoices(View v) {
+		ArrayList<Pair<Character,PieceName>> pieceChoices = new ArrayList<Pair<Character,PieceName>>();
+		pieceChoices.add(new Pair<Character,PieceName>('r', PieceName.ROOK));
+		pieceChoices.add(new Pair<Character,PieceName>('n', PieceName.KNIGHT));
+		pieceChoices.add(new Pair<Character,PieceName>('q', PieceName.QUEEN));
+		
+		if (v != null) {
+			v.displayMsg("Promotion choices are:");
+			v.displayMsg("r - rook");
+			v.displayMsg("n - knight");
+			v.displayMsg("q - queen");
+		}
+		
+		return pieceChoices;
 	}
 }

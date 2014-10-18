@@ -1,5 +1,7 @@
 package chessTest;
 
+import java.util.ArrayList;
+
 import boards.Board;
 
 public class GUIView implements View{
@@ -23,7 +25,7 @@ public class GUIView implements View{
 	}
 
 	@Override
-	public PieceName getPromotion() {
+	public PieceName getPromotion(ArrayList<Pair<Character,PieceName>> pieceChoice) {
 		// TODO Auto-generated method stub
 		return null;
 	}
