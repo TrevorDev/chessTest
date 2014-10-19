@@ -75,7 +75,7 @@ public class TextView implements View {
 
 	@Override
 	public Coord[] getMove() {
-		System.out.println("Enter you're move eg(A2,A3), or q to quit");
+		System.out.println("Enter your move eg(A2,A3), or q to quit");
 		String input = "";
 		input = in.nextLine();
 		input = input.toLowerCase();
