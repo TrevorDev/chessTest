@@ -28,12 +28,12 @@ public class ClassicRules extends Rules {
 	}
 
 	public GameState checkGameOver(Board b) {
-		if (isDraw(b))
-			return GameState.DRAW;
-		else if (isInCheckmate(b, Color.WHITE))
+		if (isInCheckmate(b, Color.WHITE))
 			return GameState.TWO_WIN;
 		else if (isInCheckmate(b, Color.BLACK))
 			return GameState.ONE_WIN;
+		else if (isDraw(b))
+			return GameState.DRAW;
 		return GameState.IN_PROGRESS;
 	}
 
@@ -72,27 +72,16 @@ public class ClassicRules extends Rules {
 	
 	//Stalemate condition #2: No valid moves possible without putting the king in check
 	public boolean isInStaleMate(Board b, Color c) {
-		
-		boolean isStalemate = true;
-		
-		isStalemate = loopOverAllMoves(b, c);
-		
-		return isStalemate;
+		return loopOverAllMoves(b, c);
 	}
 
 	public boolean isInCheckmate(Board b, Color c) {
 
-		boolean isCheckmate = true;
-
 		//Only checks if the player is currently in check
 		if (isInCheck(b, c)) {
-			isCheckmate = loopOverAllMoves(b, c);
+			return loopOverAllMoves(b, c);
 		}
-		else {
 			return false;
-		}
-
-		return isCheckmate;
 	}
 
 	public boolean isInCheck(Board b, Color c) {
