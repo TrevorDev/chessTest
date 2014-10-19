@@ -18,8 +18,13 @@ public class Tile {
 
 		return ret;
 	}
-
+	
 	public void setPiece(Piece p) {
+		
+		if (p == null) {
+			this.curPiece = p;
+			return;
+		}
 		
 		if (p.curTile != null) {
 			p.curTile.curPiece = null;

@@ -27,7 +27,6 @@ public class ClassicRules extends Rules {
 		return new ClassicBoard();
 	}
 
-	// TODO: add Draw conditions
 	public GameState checkGameOver(Board b) {
 		if (isDraw(b))
 			return GameState.DRAW;
@@ -165,7 +164,6 @@ public class ClassicRules extends Rules {
 						cloneB.getTile(subMove.getElement0().curTile.coord).curPiece = null;
 						continue;
 					}
-					
 					
 					t = cloneB.getTile(subMove.getElement1());
 					Piece cloneBP = cloneB.getTile(subMove.getElement0().curTile.coord).curPiece;

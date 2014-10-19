@@ -28,6 +28,11 @@ public class AtomicRules extends ClassicRules {
 		for (Move move : moves) {
 			if (move.coord.x == c.x && move.coord.y == c.y) {
 				for (Pair<Piece, Coord> subMove : move.subMoves) {
+					if(subMove.getElement1() == null){
+						cloneB.getTile(subMove.getElement0().curTile.coord).curPiece = null;
+						continue;
+					}
+					
 					t = cloneB.getTile(subMove.getElement1());
 					//If there is a capture, go BOOM!
 					if (t != null && t.curPiece != null) {
@@ -36,28 +41,16 @@ public class AtomicRules extends ClassicRules {
 					Piece cloneBP = cloneB
 							.getTile(subMove.getElement0().curTile.coord).curPiece;
 					t.setPiece(cloneBP);
+					if(move.pawnMoveTwo){
+						cloneBP.enPassantKillable = true;
+					}
 					cloneBP.hasMoved = true;
 				}
 				if (!isCaptureMove) {
 					cloneP = checkPromotion(cloneP, move, view, board);
 				}
 				else {
-					//BOOM! code
-					for (int x = -1; x < 2; x++) {
-						for (int y = -1; y < 2; y++) {
-							if (c.x + x > -1 && c.y + y > -1 
-									&& c.x + x < cloneB.tiles.length 
-									&& c.y + y < cloneB.tiles[0].length) {
-								t = cloneB.getTile(c.x + x, c.y + y);
-								if ((t.curPiece != null && t.curPiece.name != PieceName.PAWN)
-										|| (x == 0 && y == 0)) {
-									Piece blankP = new Piece(null, null);
-									t.setPiece(blankP);
-								}
-								//cloneB.tiles[c.x + x][c.y + y].curPiece = null;
-							}
-						}
-					}
+					atomicCapture(c, cloneB);
 				}
 				isValidMove = true;
 				break;
@@ -74,6 +67,26 @@ public class AtomicRules extends ClassicRules {
 		}
 
 		return null;
+	}
+	
+	public void atomicCapture(Coord c, Board b) {
+		//grabs all tiles surrounding capture at c
+		for (int x = -1; x < 2; x++) {
+			for (int y = -1; y < 2; y++) {
+				//Checks that x and y are in board range
+				if (c.x + x > -1 && c.y + y > -1 
+						&& c.x + x < b.tiles.length 
+						&& c.y + y < b.tiles[0].length) {
+					
+					Tile t = b.getTile(c.x + x, c.y + y);
+					if ((t.curPiece != null && t.curPiece.name != PieceName.PAWN)
+							|| (x == 0 && y == 0)) {
+						//Removes piece
+						t.setPiece(null);
+					}
+				}
+			}
+		}
 	}
 
 	public boolean isInCheck(Board b, Color c) {
