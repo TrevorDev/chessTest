@@ -19,8 +19,8 @@ public class LosAlamosBoard extends Board{
 		}
 		this.tiles[0][0].setPiece(new Piece(PieceName.ROOK, Color.WHITE));
 		this.tiles[0][1].setPiece(new Piece(PieceName.KNIGHT, Color.WHITE));
-		this.tiles[0][2].setPiece(new Piece(PieceName.KING, Color.WHITE));
-		this.tiles[0][3].setPiece(new Piece(PieceName.QUEEN, Color.WHITE));
+		this.tiles[0][2].setPiece(new Piece(PieceName.QUEEN, Color.WHITE));
+		this.tiles[0][3].setPiece(new Piece(PieceName.KING, Color.WHITE));
 		this.tiles[0][4].setPiece(new Piece(PieceName.KNIGHT, Color.WHITE));
 		this.tiles[0][5].setPiece(new Piece(PieceName.ROOK, Color.WHITE));
 		
