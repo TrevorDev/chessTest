@@ -229,6 +229,10 @@ public class ClassicRules extends Rules {
 	}
 
 	public ArrayList<Move> listAvailableMoves(Piece p, Board b) {
+		return listAvailableMoves(p, b, false);
+	}
+	
+	public ArrayList<Move> listAvailableMoves(Piece p, Board b, boolean ignoreNonKill) {
 		ArrayList<Move> ret = new ArrayList<Move>();
 		int direction = p.color == Color.WHITE ? 1 : -1;
 		Coord c = p.curTile.coord.clone();
@@ -236,7 +240,7 @@ public class ClassicRules extends Rules {
 		if (p.name == PieceName.PAWN) {
 			addPawnMoves(ret, direction, c, p, b);
 		} else if (p.name == PieceName.KING) {
-			addKingMoves(ret, direction, c, p, b);
+			addKingMoves(ret, direction, c, p, b, ignoreNonKill);
 		} else if (p.name == PieceName.ROOK) {
 			addRookMoves(ret, direction, c, p, b);
 		} else if (p.name == PieceName.BISHOP) {
@@ -317,7 +321,7 @@ public class ClassicRules extends Rules {
 	}
 
 	public void addKingMoves(ArrayList<Move> ret, int direction, Coord c,
-			Piece p, Board b) {
+			Piece p, Board b, boolean ignoreNonKill) {
 		Tile t;
 		// loop through the 2D grid around the current piece
 		for (int i = -1; i < 2; i++) {
@@ -334,43 +338,45 @@ public class ClassicRules extends Rules {
 			}
 		}
 		// castling
-		if (!p.hasMoved) {
-			boolean left = false;
-			// add castle left and right to ret
-			do {
-				left = !left;
-				Piece rook = findCastleRook(p.curTile.coord, b, left);
-				if (rook != null) {
-					// check if any of squares king touches puts him in check
-					Board clonedB = b.clone();
-					if (this.isInCheck(clonedB, p.color)) {
-						break;
+		if(!ignoreNonKill){
+			if (!p.hasMoved) {
+				boolean left = false;
+				// add castle left and right to ret
+				do {
+					left = !left;
+					Piece rook = findCastleRook(p.curTile.coord, b, left);
+					if (rook != null) {
+						// check if any of squares king touches puts him in check
+						Board clonedB = b.clone();
+						if (this.isInCheck(clonedB, p.color)) {
+							break;
+						}
+						Piece cloneKing = clonedB.getTile(p.curTile.coord).curPiece;
+						Coord castleMove = cloneKing.curTile.coord;
+						castleMove.x += left ? -1 : 1;
+						Tile castleMoveTile = clonedB.getTile(castleMove);
+						castleMoveTile.setPiece(cloneKing);
+						if (this.isInCheck(clonedB, p.color)) {
+							break;
+						}
+						castleMove.x += left ? -1 : 1;
+						castleMoveTile = clonedB.getTile(castleMove);
+						castleMoveTile.setPiece(cloneKing);
+						if (this.isInCheck(clonedB, p.color)) {
+							break;
+						}
+	
+						// Add left or right castle move
+						Coord kingMove = p.curTile.coord.clone();
+						kingMove.x += left ? -2 : 2;
+						Coord rookMove = p.curTile.coord.clone();
+						rookMove.x += left ? -1 : 1;
+						Move mo = p.createMove(kingMove, false);
+						mo.addSubMove(new Pair<Piece, Coord>(rook, rookMove));
+						ret.add(mo);
 					}
-					Piece cloneKing = clonedB.getTile(p.curTile.coord).curPiece;
-					Coord castleMove = cloneKing.curTile.coord;
-					castleMove.x += left ? -1 : 1;
-					Tile castleMoveTile = clonedB.getTile(castleMove);
-					castleMoveTile.setPiece(cloneKing);
-					if (this.isInCheck(clonedB, p.color)) {
-						break;
-					}
-					castleMove.x += left ? -1 : 1;
-					castleMoveTile = clonedB.getTile(castleMove);
-					castleMoveTile.setPiece(cloneKing);
-					if (this.isInCheck(clonedB, p.color)) {
-						break;
-					}
-
-					// Add left or right castle move
-					Coord kingMove = p.curTile.coord.clone();
-					kingMove.x += left ? -2 : 2;
-					Coord rookMove = p.curTile.coord.clone();
-					rookMove.x += left ? -1 : 1;
-					Move mo = p.createMove(kingMove, false);
-					mo.addSubMove(new Pair<Piece, Coord>(rook, rookMove));
-					ret.add(mo);
-				}
-			} while (left);
+				} while (left);
+			}
 		}
 	}
 
