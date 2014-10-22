@@ -104,7 +104,8 @@ public class ClassicRules extends Rules {
 		checkLoop: for (int y = 0; y < b.tiles.length; y++) {
 			for (int x = 0; x < b.tiles.length; x++) {
 				Piece p = b.getTile(new Coord(x, y)).curPiece;
-				if (p != null && p.color != c) {
+				// Kings can't put kings in check
+				if (p != null && p.color != c && p.name != PieceName.KING) {
 					ArrayList<Move> moves = this.listAvailableMoves(p, b);
 					for (Move move : moves) {
 						if (move.coord.equals(king.curTile.coord)
@@ -322,15 +323,15 @@ public class ClassicRules extends Rules {
 		// loop through the 2D grid around the current piece
 		for (int i = -1; i < 2; i++) {
 			for (int j = -1; j < 2; j++) {
-				if (i == 0 && j == 0) { // can't move the king to it's current
+				if (i != 0 && j != 0) { // can't move the king to it's current
 										// position
-					continue;
-				}
-				t = b.getTile(c.x + j, c.y + i);
-				if (t != null) {
-					ret.add(p.createMove(t.coord.clone()));
+					t = b.getTile(c.x + j, c.y + i);
+					if (t != null) {
+						ret.add(p.createMove(t.coord.clone()));
 
+					}
 				}
+				
 			}
 		}
 		// castling
