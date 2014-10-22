@@ -105,7 +105,7 @@ public class ClassicRules extends Rules {
 			for (int x = 0; x < b.tiles.length; x++) {
 				Piece p = b.getTile(new Coord(x, y)).curPiece;
 				if (p != null && p.color != c) {
-					ArrayList<Move> moves = this.listAvailableMoves(p, b, true);
+					ArrayList<Move> moves = this.listAvailableMoves(p, b);
 					for (Move move : moves) {
 						if (move.coord.equals(king.curTile.coord)
 								&& move.isKillMove) {
