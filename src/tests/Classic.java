@@ -2,18 +2,19 @@ package tests;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
+import boards.Board;
+import chessTest.Game;
 
 public class Classic extends TestCase {
-	public void setUp() throws Exception {
-	    System.out.println("Setting up ...");
-	  }
-	 
-	  public void teanDown() throws Exception {
-	    System.out.println("Tearing down ...");
-	  }
 	 
 	  public void testOne() {
-	    Assert.assertNotNull(null);
+		  Game.main(null, true, TestHelper.fileToString("testFiles/1.txt"), new TestGameStateCallback() {
+			   public void call(String output, Board b) {
+				   //System.out.println(output);
+				   Assert.assertNotNull(output);
+			   }
+			});
+		  Assert.assertNotNull("");
 	  }
 	  
 	  public void testTwo() {

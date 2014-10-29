@@ -11,4 +11,5 @@ public interface View {
 	public void displayMsg(String msg);
 	public Coord[] getMove();
 	public PieceName getPromotion(ArrayList<Pair<Character,PieceName>> pieceChoices);
+	public String getOutput();
 }

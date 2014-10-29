@@ -1,19 +1,30 @@
 package chessTest;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.concurrent.Callable;
+
 import boards.Board;
 import rules.AtomicRules;
 import rules.ClassicRules;
 import rules.LosAlamosRules;
 import rules.Rules;
+import tests.TestGameStateCallback;
 
 public class Game {
 	public static Rules rules;
 	public static Board board;
 
 	public static void main(String[] args) {
+		main(args, false, null, null);
+	}
+	
+	public static void main(String[] args, boolean testMode, String testInput, TestGameStateCallback stateCallback) {	
+		View v;
 		mainGameLoop:
 		for (;;) {
-			View v = new TextView();
+			v = testMode ? new TextView(testInput) : new TextView(null);
 			int gameType = 0;
 			
 			//Get user's chosen game type
@@ -54,7 +65,7 @@ public class Game {
 						}else{
 							v.displayMsg("Player one (White) Wins!"); 
 						}
-						continue mainGameLoop;
+						break mainGameLoop;
 					}
 					
 					//check if first coord is a piece
@@ -101,6 +112,15 @@ public class Game {
 						v.displayMsg("Player two (Black) Wins!");
 					}
 				}
+			}
+			break;
+		}
+		if(testMode){
+			try {
+				stateCallback.call(v.getOutput(), board);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 		}
 		

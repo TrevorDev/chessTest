@@ -42,4 +42,10 @@ public class GUIView implements View{
 		return 0;
 	}
 
+	@Override
+	public String getOutput() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

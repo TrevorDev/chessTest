@@ -7,9 +7,17 @@ import boards.Board;
 
 public class TextView implements View {
 	Board board;
+	boolean testMode = false;
+	String[] testInput;
+	int testInputPos = -1;
+	String testOutput = "";
 	static Scanner in = new Scanner(System.in);
 
-	public TextView() {
+	public TextView(String testInputString) {
+		if(testInputString != null){
+			testMode = true;
+			testInput = testInputString.split("\n");
+		}
 		this.board = null;
 	}
 
@@ -18,19 +26,19 @@ public class TextView implements View {
 	}
 
 	public void printDashLine() {
-		System.out.print("   ");
+		displayMsg("   ", 0);
 		for (int i = 0; i < board.tiles.length; i++) {
-			System.out.print("- ");
+			displayMsg("- ", 0);
 		}
-		System.out.println("");
+		displayMsg("");
 	}
 
 	public void printLetters() {
-		System.out.print("   ");
+		displayMsg("   ", 0);
 		for (int i = 0; i < board.tiles.length; i++) {
-			System.out.print(Character.toChars((i + 65))[0] + " ");
+			displayMsg(Character.toChars((i + 65))[0] + " ", 0);
 		}
-		System.out.println("");
+		displayMsg("");
 	}
 
 	@Override
@@ -38,7 +46,7 @@ public class TextView implements View {
 		printLetters();
 		printDashLine();
 		for (int i = board.tiles.length - 1; i >= 0; i--) {
-			System.out.print((i + 1) + " |");
+			displayMsg((i + 1) + " |", 0);
 			for (int j = 0; j < board.tiles[0].length; j++) {
 
 				char out = '.';
@@ -47,7 +55,7 @@ public class TextView implements View {
 				}
 				Piece p = board.tiles[i][j].curPiece;
 				if (p != null) {
-					// System.out.println(p.name);
+					// displayMsg(p.name);
 					if (p.name == PieceName.BISHOP) {
 						out = 'b';
 					} else if (p.name == PieceName.PAWN) {
@@ -65,9 +73,9 @@ public class TextView implements View {
 						out = Character.toUpperCase(out);
 					}
 				}
-				System.out.print(out + " ");
+				displayMsg(out + " ", 0);
 			}
-			System.out.println("| " + (i + 1));
+			displayMsg("| " + (i + 1));
 		}
 		printDashLine();
 		printLetters();
@@ -75,14 +83,14 @@ public class TextView implements View {
 
 	@Override
 	public Coord[] getMove() {
-		System.out.println("Enter your move eg(A2,A3), or q to quit");
+		displayMsg("Enter your move eg(A2,A3), or q to quit");
 		String input = "";
-		input = in.nextLine();
+		input = getNextLine();
 		input = input.toLowerCase();
 		input = input.replaceAll("[^A-Za-z0-9]", "");
 
 		// clear screen
-		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		displayMsg("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
 		if (input.equals("q")) {
 			Coord[] ret = new Coord[1];
@@ -115,17 +123,16 @@ public class TextView implements View {
 		String input = "";
 		int gameType = -1;
 
-		System.out
-				.println("Please Enter the number corresponding to the Chess Type you would like to play");
-		System.out.println("1. Classic Chess");
-		System.out.println("2. Los Alamos Chess");
-		System.out.println("3. Atomic Chess");
+		displayMsg("Please Enter the number corresponding to the Chess Type you would like to play");
+		displayMsg("1. Classic Chess");
+		displayMsg("2. Los Alamos Chess");
+		displayMsg("3. Atomic Chess");
 
-		input = in.nextLine();
+		input = getNextLine();
 		input = input.replaceAll("[^0-9]", "");
 
 		// clear screen
-		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		displayMsg("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
 		if (input.length() != 1) {
 			return -1;
@@ -144,31 +151,58 @@ public class TextView implements View {
 
 	@Override
 	public void displayMsg(String msg) {
-		System.out.println(msg);
+		if(!testMode){
+			System.out.println(msg);
+		}
+		
+		this.testOutput = this.testOutput + msg+ "\n";
+	}
+	
+	public void displayMsg(String msg, int newlines) {
+		if(!testMode){
+			System.out.print(msg);
+		}
+		
+		this.testOutput = this.testOutput + msg;
 	}
 
+	public String getNextLine(){
+		testInputPos++;
+		try{
+			return this.testMode ? this.testInput[testInputPos] : in.nextLine();
+		}catch(Exception e){
+			System.out.println("Not enuf input to end the game");
+		}
+		return null;
+	}
+	
 	public PieceName getPromotion(ArrayList<Pair<Character,PieceName>> pieceChoices) {
 
 		while (true) {
-			System.out.println("Enter the piece you would like to promote your pawn into from the options above:");
+			displayMsg("Enter the piece you would like to promote your pawn into from the options above:");
 			String input = "";
-			input = in.nextLine();
+			input = getNextLine();
 
 			if (input.length() != 1) {
-				System.out.println("Invaild input, please try again.");
+				displayMsg("Invaild input, please try again.");
 				continue;
 			}
 			
 			for (int i = 0; i< pieceChoices.size(); i++) {
 				if (input.charAt(0) == pieceChoices.get(i).getElement0()) {
 					// clear screen
-					System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+					displayMsg("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 					
 					return pieceChoices.get(i).getElement1();
 				}
 			}
 			
-			System.out.println("Invaild promotion piece, please try again.");
+			displayMsg("Invaild promotion piece, please try again.");
 		}
+	}
+
+	@Override
+	public String getOutput() {
+		return this.testOutput;
 	}
 }
