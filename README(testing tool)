@@ -1,0 +1,45 @@
+Group 6: README
+================
+
+Intro
+------
+We have created our own in house automation tool to help with black box testcases.
+This README was created to help define and explain our tool.
+
+Description
+------------
+We have created a JUnit testing framework that allows for a tester to create testcases
+through JUnit and textfiles. The tester creates a single testcase in a textfile
+(see example file below). Then simply runs the tool, and all the moves in the testcase 
+will be applied in sequence. The tool asserts that the desired output has been met, note
+that the desired output is stated in the JUnit testcase.
+
+Example File
+------------
+1
+a2,a4
+a7,a6
+q
+
+Dependencies
+-------------
+For this README we assume the reader has Eclipse installed and is familiar with 
+run configurations.
+
+How to create a testcase:
+-------------------------
+A testcase can be created by simply converting the desired testcase
+to match the format similar to the example file above. Note: 1 represents the game type,
+a2,a4 and a7,a6 represents white and black's move in that order. And finally q is to quit the game
+So this example testcase could be labelled as "pawn movements of 1 space towards their opponent" for both white and black.
+
+Note the textfile created must be added to the /chessTest/testFiles directory.
+
+Once the textfile is created the tester must create a new test(method) in the tests folder(/src/tests) and create a JUnit test that will run the newly created file. This is where the tester can add assertions to verify the testcase passed correctly.
+
+How to run:
+-----------
+To run the tool, you must create a run configuration in eclipse with JUnit 3.
+This run configuration should point to the test class containing all the tests you would
+like to run (i.e. /src/test/testExample.class). Then simply run the new configuration,
+the results of the tests will be shown on the right hand side.
