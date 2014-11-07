@@ -23,5 +23,19 @@ public class Move {
 	public void addSubMove(Pair<Piece, Coord> x){
 		subMoves.add(x);
 	}
+	
+	@Override
+	public boolean equals(Object object){
+		 if (object != null && object instanceof Move)
+        {
+			 Move m = (Move)object;
+			 if(this.coord.equals(m.coord)&&this.subMoves.get(0).getElement0() == m.subMoves.get(0).getElement0()){
+				return true;
+			}
+        }
+		
+		return false;
+	}
+	
 }
 
