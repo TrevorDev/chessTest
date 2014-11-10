@@ -58,7 +58,9 @@ int main(int argc, char **argv)
         //printf("feeding in gibberish...\n");
         fprintf(fp2, "%c%c%c%c%c\n", RAND_CHAR, RAND_CHAR, RAND_CHAR, RAND_CHAR,
           RAND_CHAR);
+        fflush(fp2);
     }
+    fclose(fp2);
 
 #ifdef EDEBUG
     printf("let's get a little more complex...\n");
@@ -67,8 +69,6 @@ int main(int argc, char **argv)
     fcntl(readFd, F_SETFL, savedFdFlags & ~O_NONBLOCK);
     pthread_create(NULL, NULL, readProcess, (void *) &readFd);
 #endif
-
-    printf("If you can see this, fuzz testing passed!\n");
 
     return 0;
 }
