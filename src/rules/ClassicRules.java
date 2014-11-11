@@ -323,7 +323,7 @@ public class ClassicRules extends Rules {
 		// loop through the 2D grid around the current piece
 		for (int i = -1; i < 2; i++) {
 			for (int j = -1; j < 2; j++) {
-				if (i != 0 && j != 0) { // can't move the king to it's current
+				if (i != 0 || j != 0) { // can't move the king to it's current
 										// position
 					t = b.getTile(c.x + j, c.y + i);
 					if (t != null) {
