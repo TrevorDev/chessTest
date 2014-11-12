@@ -1,0 +1,19 @@
+Group 6: README
+================
+
+Intro
+------
+We have created our own in house automation fuzz tester tool.
+This README was created to help define and explain our tool.
+
+Description
+------------
+The fuzz tester tool under src/tests/fuzztest.c spawns the Java process and interacts with it via pipes. It first inputs random ASCI characters, then inputs ASCI characters that adheres to our standard input (character, number, character, number (eg: "A2,A3\n")). It can be run as many times as the testing team deems sufficent. Any failure, segmentation fault, etc. will be reported to the console, as stderr is redirected to stdout in the spawned processes.
+
+Building & Running the tool
+---------------------------
+Compile the .c file with no special flags. Eg:
+    gcc fuzztest.c -o fuzztest
+then run it from the tests directory, after having built the Java files within the eclipse project within the existing, unmodified directory structure. Eg:
+    ./fuzztest
+The program will navigate the directories appropriately, and run the Java program, with the output being directed to console to provide feedback. 
