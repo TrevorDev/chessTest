@@ -1,5 +1,12 @@
 package chessTest;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import boards.Board;
+
+import rules.Rules;
+
 public class Piece {
 	public PieceName name;
 	public Color color;
@@ -28,6 +35,15 @@ public class Piece {
 		p.inCheck = this.inCheck;
 		p.enPassantKillable = this.enPassantKillable;
 		return p;
-		
+	}
+	
+	//testing
+	public boolean canMoveTo(Rules r, Board b, List<Coord> positions){
+		ArrayList<Move> moves = r.listAvailableMoves(this, b);
+		 ArrayList<Move> assertMoves = new ArrayList<Move>();
+		 for(Coord c : positions){
+			 assertMoves.add(new Move(new Pair<Piece, Coord>(this, c)));
+		 }
+		return moves.containsAll(assertMoves);
 	}
 }
