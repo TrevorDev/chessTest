@@ -16,6 +16,7 @@ public class TestHelper {
 			while ((c = fs.read()) != -1) {
 				ret = ret + (char) c;
 			}
+			fs.close();
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

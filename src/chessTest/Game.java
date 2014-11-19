@@ -1,16 +1,11 @@
 package chessTest;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.concurrent.Callable;
-
-import boards.Board;
 import rules.AtomicRules;
 import rules.ClassicRules;
 import rules.LosAlamosRules;
 import rules.Rules;
 import tests.TestGameStateCallback;
+import boards.Board;
 
 public class Game {
 	public static Rules rules;
@@ -20,6 +15,7 @@ public class Game {
 		main(args, false, null, null);
 	}
 	
+	@SuppressWarnings("unused")
 	public static void main(String[] args, boolean testMode, String testInput, TestGameStateCallback stateCallback) {	
 		View v;
 		mainGameLoop:
