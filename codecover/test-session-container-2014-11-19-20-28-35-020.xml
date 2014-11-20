@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><TestSessionContainer xmlns="http://www.codecover.org/xml/testsession-container" Date="1416433378718" TestSessionContainerId="852886d7-8bcb-4a90-9260-0957dd79e7bc" version="1.0">
+<?xml version="1.0" encoding="UTF-8"?><TestSessionContainer xmlns="http://www.codecover.org/xml/testsession-container" Date="1416446915009" TestSessionContainerId="85803af1-fcb3-47eb-9362-7a2cf5a588d0" version="1.0">
 <SrcFileList>
 <SrcFile Content="package rules;&#13;&#10;&#13;&#10;import java.util.ArrayList;&#13;&#10;import java.util.Iterator;&#13;&#10;&#13;&#10;import boards.Board;&#13;&#10;import boards.ClassicBoard;&#13;&#10;import chessTest.Color;&#13;&#10;import chessTest.Coord;&#13;&#10;import chessTest.GameState;&#13;&#10;import chessTest.Move;&#13;&#10;import chessTest.Pair;&#13;&#10;import chessTest.Piece;&#13;&#10;import chessTest.PieceName;&#13;&#10;import chessTest.Tile;&#13;&#10;import chessTest.View;&#13;&#10;&#13;&#10;public class ClassicRules extends Rules {&#13;&#10;&#9;&#13;&#10;&#9;private int nBlackKingMoves = 0, nWhiteKingMoves = 0;&#13;&#10;&#9;&#13;&#10;&#9;public ClassicRules() {&#13;&#10;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public Board createBoard() {&#13;&#10;&#9;&#9;return new ClassicBoard();&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public GameState checkGameOver(Board b) {&#13;&#10;&#9;&#9;if (isInCheckmate(b, Color.WHITE))&#13;&#10;&#9;&#9;&#9;return GameState.TWO_WIN;&#13;&#10;&#9;&#9;else if (isInCheckmate(b, Color.BLACK))&#13;&#10;&#9;&#9;&#9;return GameState.ONE_WIN;&#13;&#10;&#9;&#9;else if (isDraw(b))&#13;&#10;&#9;&#9;&#9;return GameState.DRAW;&#13;&#10;&#9;&#9;return GameState.IN_PROGRESS;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public boolean isDraw(Board b) {&#13;&#10;&#9;&#9;return nBlackKingMoves &gt;= 21 || nWhiteKingMoves &gt;= 21 || isInStaleMate(b, Color.WHITE) || isInStaleMate(b, Color.BLACK);&#13;&#10;&#9;}&#13;&#10;&#9;&#13;&#10;&#9;public boolean loopOverAllMoves(Board b, Color c) {&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;boolean cannotMove = true;&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;Board bClone = b.clone();&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;//Grabs all players pieces to check if a move can save them&#13;&#10;&#9;&#9;checkMateLoop: for (int y = 0; y &lt; bClone.tiles.length; y++) {&#13;&#10;&#9;&#9;&#9;for (int x = 0; x &lt; bClone.tiles.length; x++) {&#13;&#10;&#9;&#9;&#9;&#9;&#13;&#10;&#9;&#9;&#9;&#9;Piece p = bClone.getTile(new Coord(x, y)).curPiece;&#13;&#10;&#9;&#9;&#9;&#9;if (p != null &amp;&amp; p.color == c) {&#13;&#10;&#9;&#9;&#9;&#9;&#9;ArrayList&lt;Move&gt; moves = listAvailableMoves(p,bClone);&#13;&#10;&#9;&#9;&#9;&#9;&#9;for (Move m: moves) {&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;movePiece(p, m.coord, c, null, bClone);&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;if (!isInCheck(bClone, c)) {&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;cannotMove = false;&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;break checkMateLoop;&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;//reset cloned board;&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;bClone = b.clone();&#13;&#10;&#9;&#9;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;return cannotMove;&#13;&#10;&#9;}&#13;&#10;&#9;&#13;&#10;&#9;//Stalemate condition #2: No valid moves possible without putting the king in check&#13;&#10;&#9;public boolean isInStaleMate(Board b, Color c) {&#13;&#10;&#9;&#9;return loopOverAllMoves(b, c);&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public boolean isInCheckmate(Board b, Color c) {&#13;&#10;&#13;&#10;&#9;&#9;//Only checks if the player is currently in check&#13;&#10;&#9;&#9;if (isInCheck(b, c)) {&#13;&#10;&#9;&#9;&#9;return loopOverAllMoves(b, c);&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;return false;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public boolean isInCheck(Board b, Color c) {&#13;&#10;&#13;&#10;&#9;&#9;Piece king = null;&#13;&#10;&#9;&#9;boolean check = false;&#13;&#10;&#13;&#10;&#9;&#9;// Find King piece for current player&#13;&#10;&#9;&#9;kingLoop: for (int y = 0; y &lt; b.tiles.length; y++) {&#13;&#10;&#9;&#9;&#9;for (int x = 0; x &lt; b.tiles.length; x++) {&#13;&#10;&#9;&#9;&#9;&#9;Piece p = b.getTile(new Coord(x, y)).curPiece;&#13;&#10;&#9;&#9;&#9;&#9;if (p != null &amp;&amp; p.name == PieceName.KING &amp;&amp; p.color == c) {&#13;&#10;&#9;&#9;&#9;&#9;&#9;king = p;&#13;&#10;&#9;&#9;&#9;&#9;&#9;break kingLoop;&#13;&#10;&#9;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;}&#13;&#10;&#13;&#10;&#9;&#9;// Check if King is in check&#13;&#10;&#9;&#9;checkLoop: for (int y = 0; y &lt; b.tiles.length; y++) {&#13;&#10;&#9;&#9;&#9;for (int x = 0; x &lt; b.tiles.length; x++) {&#13;&#10;&#9;&#9;&#9;&#9;Piece p = b.getTile(new Coord(x, y)).curPiece;&#13;&#10;&#9;&#9;&#9;&#9;// Kings can't put kings in check&#13;&#10;&#9;&#9;&#9;&#9;if (p != null &amp;&amp; p.color != c &amp;&amp; p.name != PieceName.KING) {&#13;&#10;&#9;&#9;&#9;&#9;&#9;ArrayList&lt;Move&gt; moves = this.listAvailableMoves(p, b);&#13;&#10;&#9;&#9;&#9;&#9;&#9;for (Move move : moves) {&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;if (move.coord.equals(king.curTile.coord)&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&amp;&amp; move.isKillMove) {&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;check = true;&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;break checkLoop;&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;}&#13;&#10;&#13;&#10;&#9;&#9;return check;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;// returns rook who have not moved in same row as c on the &quot;left&quot; side&#13;&#10;&#9;public Piece findCastleRook(Coord c, Board board, boolean left) {&#13;&#10;&#9;&#9;Coord nextC = c.clone();&#13;&#10;&#9;&#9;nextC.x += left ? -1 : 1;&#13;&#10;&#9;&#9;Tile t = board.getTile(nextC);&#13;&#10;&#9;&#9;if (t == null) {&#13;&#10;&#9;&#9;&#9;return null;&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;Piece p = t.curPiece;&#13;&#10;&#9;&#9;if (p != null) {&#13;&#10;&#9;&#9;&#9;if (p.name == PieceName.ROOK &amp;&amp; !p.hasMoved) {&#13;&#10;&#9;&#9;&#9;&#9;return p;&#13;&#10;&#9;&#9;&#9;} else {&#13;&#10;&#9;&#9;&#9;&#9;return null;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;return findCastleRook(nextC, board, left);&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public String movePiece(Piece p, Coord c, Color playersTurn, View view,&#13;&#10;&#9;&#9;&#9;Board board) {&#13;&#10;&#9;&#9;Board cloneB = board.clone();&#13;&#10;&#9;&#9;Tile t = cloneB.getTile(c);&#13;&#10;&#9;&#9;boolean isValidMove = false;&#13;&#10;&#9;&#9;Piece cloneP = cloneB.getTile(p.curTile.coord).curPiece;&#13;&#10;&#9;&#9;ArrayList&lt;Move&gt; moves = this.listAvailableMoves(cloneP, board);&#13;&#10;&#9;&#9;for (Move move : moves) {&#13;&#10;&#9;&#9;&#9;if (move.coord.x == c.x &amp;&amp; move.coord.y == c.y) {&#13;&#10;&#9;&#9;&#9;&#9;for (Pair&lt;Piece, Coord&gt; subMove : move.subMoves) {&#13;&#10;&#9;&#9;&#9;&#9;&#9;if(subMove.getElement1() == null){&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;cloneB.getTile(subMove.getElement0().curTile.coord).curPiece = null;&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;continue;&#13;&#10;&#9;&#9;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#13;&#10;&#9;&#9;&#9;&#9;&#9;t = cloneB.getTile(subMove.getElement1());&#13;&#10;&#9;&#9;&#9;&#9;&#9;Piece cloneBP = cloneB.getTile(subMove.getElement0().curTile.coord).curPiece;&#13;&#10;&#9;&#9;&#9;&#9;&#9;t.setPiece(cloneBP);&#13;&#10;&#9;&#9;&#9;&#9;&#9;if(move.pawnMoveTwo){&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;cloneBP.enPassantKillable = true;&#13;&#10;&#9;&#9;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;&#9;&#9;cloneBP.hasMoved = true;&#13;&#10;&#9;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;&#9;cloneP = checkPromotion(cloneP, move, view, board);&#13;&#10;&#9;&#9;&#9;&#9;isValidMove = true;&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;if (!isValidMove) {&#13;&#10;&#9;&#9;&#9;return &quot;Invalid Move: This piece cannot be moved to your desired tile.&quot;;&#13;&#10;&#9;&#9;}&#13;&#10;&#13;&#10;&#9;&#9;if (!isInCheck(cloneB, playersTurn)) {&#13;&#10;&#9;&#9;&#9;board.set(cloneB);&#13;&#10;&#9;&#9;} else {&#13;&#10;&#9;&#9;&#9;return &quot;Invalid Move: This move leaves your king in check.&quot;;&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;// stalemate condition #1: The king as the only colour of its piece moves 21 times&#13;&#10;&#9;&#9;if (p.name == PieceName.KING) { // we're moving the king&#13;&#10;&#9;&#9;&#9;&#13;&#10;&#9;&#9;&#9;for (int x = 0; x &lt; board.tiles[0].length; x++) {&#13;&#10;&#9;&#9;&#9;&#9;for (int y = 0; y &lt; board.tiles.length; y++) {&#13;&#10;&#9;&#9;&#9;&#9;&#9;Tile tile = board.getTile(x, y);&#13;&#10;&#9;&#9;&#9;&#9;&#9;Piece piece = tile.curPiece;&#13;&#10;&#9;&#9;&#9;&#9;&#9;if (piece != null &amp;&amp; piece.color == p.color &amp;&amp; piece.name != PieceName.KING) {&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;return null;&#13;&#10;&#9;&#9;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;&#13;&#10;&#9;&#9;&#9;&#13;&#10;&#9;&#9;    if (p.color == Color.WHITE) {&#13;&#10;&#9;&#9;    &#9;nWhiteKingMoves++;&#13;&#10;&#9;&#9;    &#9;if (nWhiteKingMoves &gt;= 21) {&#13;&#10;&#9;&#9;    &#9;&#9;return &quot;Stalemate! The white King has moved 21 times as the only white piece!&quot;;&#13;&#10;&#9;&#9;    &#9;}&#13;&#10;&#9;&#9;    }&#13;&#10;&#9;&#9;    else {&#13;&#10;&#9;&#9;    &#9;nBlackKingMoves++;&#13;&#10;&#9;&#9;    &#9;if (nBlackKingMoves &gt;= 21) {&#13;&#10;&#9;&#9;    &#9;&#9;return &quot;Stalemate! The black King has moved 21 times as the only white piece!&quot;;&#13;&#10;&#9;&#9;    &#9;}&#13;&#10;&#9;&#9;    }&#13;&#10;&#9;&#9;}&#13;&#10;&#13;&#10;&#9;&#9;return null;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public Piece checkPromotion(Piece p, Move move, View view, Board b) {&#13;&#10;&#13;&#10;&#9;&#9;if (view != null &amp;&amp; p.name == PieceName.PAWN) {&#13;&#10;&#13;&#10;&#9;&#9;&#9;if (p.color == Color.WHITE) {&#13;&#10;&#9;&#9;&#9;&#9;if (move.coord.y == (b.tiles.length - 1)) {&#13;&#10;&#9;&#9;&#9;&#9;&#9;p.name = view.getPromotion(promotionChoices(view));&#13;&#10;&#9;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#13;&#10;&#9;&#9;&#9;if (p.color == Color.BLACK) {&#13;&#10;&#9;&#9;&#9;&#9;if (move.coord.y == 0) {&#13;&#10;&#9;&#9;&#9;&#9;&#9;p.name = view.getPromotion(promotionChoices(view));&#13;&#10;&#9;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;}&#13;&#10;&#13;&#10;&#9;&#9;return p;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public ArrayList&lt;Move&gt; listAvailableMoves(Piece p, Board b) {&#13;&#10;&#9;&#9;ArrayList&lt;Move&gt; ret = new ArrayList&lt;Move&gt;();&#13;&#10;&#9;&#9;int direction = p.color == Color.WHITE ? 1 : -1;&#13;&#10;&#9;&#9;Coord c = p.curTile.coord.clone();&#13;&#10;&#13;&#10;&#9;&#9;if (p.name == PieceName.PAWN) {&#13;&#10;&#9;&#9;&#9;addPawnMoves(ret, direction, c, p, b);&#13;&#10;&#9;&#9;} else if (p.name == PieceName.KING) {&#13;&#10;&#9;&#9;&#9;addKingMoves(ret, direction, c, p, b);&#13;&#10;&#9;&#9;} else if (p.name == PieceName.ROOK) {&#13;&#10;&#9;&#9;&#9;addRookMoves(ret, direction, c, p, b);&#13;&#10;&#9;&#9;} else if (p.name == PieceName.BISHOP) {&#13;&#10;&#9;&#9;&#9;addBishopMoves(ret, direction, c, p, b);&#13;&#10;&#9;&#9;} else if (p.name == PieceName.QUEEN) {&#13;&#10;&#9;&#9;&#9;addQueenMoves(ret, direction, c, p, b);&#13;&#10;&#9;&#9;} else if (p.name == PieceName.KNIGHT) {&#13;&#10;&#9;&#9;&#9;addKnightMoves(ret, direction, c, p, b);&#13;&#10;&#9;&#9;}&#13;&#10;&#13;&#10;&#9;&#9;// remove all moves that move the piece to a tile that doesn't exist, or&#13;&#10;&#9;&#9;// to a tile occupied by a piece of our own colour&#13;&#10;&#9;&#9;Iterator&lt;Move&gt; i = ret.iterator();&#13;&#10;&#9;&#9;while (i.hasNext()) {&#13;&#10;&#9;&#9;&#9;Move x = i.next();&#13;&#10;&#9;&#9;&#9;if (b.getTile(x.coord).curPiece != null&#13;&#10;&#9;&#9;&#9;&#9;&#9;&amp;&amp; b.getTile(x.coord).curPiece.color == p.color) {&#13;&#10;&#9;&#9;&#9;&#9;i.remove();&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;return ret;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public void addPawnMoves(ArrayList&lt;Move&gt; ret, int direction, Coord c,&#13;&#10;&#9;&#9;&#9;Piece p, Board b) {&#13;&#10;&#9;&#9;Tile t = b.getTile(c.x, c.y + (1 * direction));&#13;&#10;&#9;&#9;if (t != null &amp;&amp; t.curPiece == null) {&#13;&#10;&#9;&#9;&#9;ret.add(p.createMove(t.coord.clone(), false));&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;if (!p.hasMoved) {&#13;&#10;&#9;&#9;&#9;t = b.getTile(c.x, c.y + (2 * direction));&#13;&#10;&#9;&#9;&#9;if (t != null &amp;&amp; t.curPiece == null) {&#13;&#10;&#9;&#9;&#9;&#9;Move m = p.createMove(t.coord.clone(), false);&#13;&#10;&#9;&#9;&#9;&#9;m.pawnMoveTwo = true;&#13;&#10;&#9;&#9;&#9;&#9;ret.add(m);&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;}&#13;&#10;&#13;&#10;&#9;&#9;//capture moves&#13;&#10;&#9;&#9;t = b.getTile(c.x + 1, c.y + (1 * direction));&#13;&#10;&#9;&#9;if (t != null &amp;&amp; t.curPiece != null) {&#13;&#10;&#9;&#9;&#9;ret.add(p.createMove(t.coord.clone()));&#13;&#10;&#9;&#9;}&#13;&#10;&#13;&#10;&#9;&#9;t = b.getTile(c.x - 1, c.y + (1 * direction));&#13;&#10;&#9;&#9;if (t != null &amp;&amp; t.curPiece != null) {&#13;&#10;&#9;&#9;&#9;ret.add(p.createMove(t.coord.clone()));&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;//enpassant moves&#13;&#10;&#9;&#9;t = b.getTile(c.x - 1, c.y + (0 * direction));&#13;&#10;&#9;&#9;if (t != null &amp;&amp; t.curPiece != null) {&#13;&#10;&#9;&#9;&#9;if(t.curPiece.enPassantKillable){&#13;&#10;&#9;&#9;&#9;&#9;t = b.getTile(c.x - 1, c.y + (1 * direction));&#13;&#10;&#9;&#9;&#9;&#9;if (t != null &amp;&amp; t.curPiece == null) {&#13;&#10;&#9;&#9;&#9;&#9;&#9;Move m = p.createMove(t.coord.clone());&#13;&#10;&#9;&#9;&#9;&#9;&#9;t = b.getTile(c.x - 1, c.y + (0 * direction));&#13;&#10;&#9;&#9;&#9;&#9;&#9;m.addSubMove(new Pair&lt;Piece, Coord&gt;(t.curPiece, null));&#13;&#10;&#9;&#9;&#9;&#9;&#9;ret.add(m);&#13;&#10;&#9;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;t = b.getTile(c.x + 1, c.y + (0 * direction));&#13;&#10;&#9;&#9;if (t != null &amp;&amp; t.curPiece != null) {&#13;&#10;&#9;&#9;&#9;if(t.curPiece.enPassantKillable){&#13;&#10;&#9;&#9;&#9;&#9;t = b.getTile(c.x + 1, c.y + (1 * direction));&#13;&#10;&#9;&#9;&#9;&#9;if (t != null &amp;&amp; t.curPiece == null) {&#13;&#10;&#9;&#9;&#9;&#9;&#9;Move m = p.createMove(t.coord.clone());&#13;&#10;&#9;&#9;&#9;&#9;&#9;t = b.getTile(c.x + 1, c.y + (0 * direction));&#13;&#10;&#9;&#9;&#9;&#9;&#9;m.addSubMove(new Pair&lt;Piece, Coord&gt;(t.curPiece, null));&#13;&#10;&#9;&#9;&#9;&#9;&#9;ret.add(m);&#13;&#10;&#9;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public void addKingMoves(ArrayList&lt;Move&gt; ret, int direction, Coord c,&#13;&#10;&#9;&#9;&#9;Piece p, Board b) {&#13;&#10;&#9;&#9;Tile t;&#13;&#10;&#9;&#9;// loop through the 2D grid around the current piece&#13;&#10;&#9;&#9;for (int i = -1; i &lt; 2; i++) {&#13;&#10;&#9;&#9;&#9;for (int j = -1; j &lt; 2; j++) {&#13;&#10;&#9;&#9;&#9;&#9;if (i != 0 || j != 0) { // can't move the king to it's current&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;// position&#13;&#10;&#9;&#9;&#9;&#9;&#9;t = b.getTile(c.x + j, c.y + i);&#13;&#10;&#9;&#9;&#9;&#9;&#9;if (t != null) {&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;ret.add(p.createMove(t.coord.clone()));&#13;&#10;&#13;&#10;&#9;&#9;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;&#9;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;// castling&#13;&#10;&#9;&#9;if (!p.hasMoved) {&#13;&#10;&#9;&#9;&#9;boolean left = false;&#13;&#10;&#9;&#9;&#9;// add castle left and right to ret&#13;&#10;&#9;&#9;&#9;do {&#13;&#10;&#9;&#9;&#9;&#9;left = !left;&#13;&#10;&#9;&#9;&#9;&#9;Piece rook = findCastleRook(p.curTile.coord, b, left);&#13;&#10;&#9;&#9;&#9;&#9;if (rook != null) {&#13;&#10;&#9;&#9;&#9;&#9;&#9;// check if any of squares king touches puts him in check&#13;&#10;&#9;&#9;&#9;&#9;&#9;Board clonedB = b.clone();&#13;&#10;&#9;&#9;&#9;&#9;&#9;if (this.isInCheck(clonedB, p.color)) {&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;&#9;&#9;Piece cloneKing = clonedB.getTile(p.curTile.coord).curPiece;&#13;&#10;&#9;&#9;&#9;&#9;&#9;Coord castleMove = cloneKing.curTile.coord;&#13;&#10;&#9;&#9;&#9;&#9;&#9;castleMove.x += left ? -1 : 1;&#13;&#10;&#9;&#9;&#9;&#9;&#9;Tile castleMoveTile = clonedB.getTile(castleMove);&#13;&#10;&#9;&#9;&#9;&#9;&#9;castleMoveTile.setPiece(cloneKing);&#13;&#10;&#9;&#9;&#9;&#9;&#9;if (this.isInCheck(clonedB, p.color)) {&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;&#9;&#9;castleMove.x += left ? -1 : 1;&#13;&#10;&#9;&#9;&#9;&#9;&#9;castleMoveTile = clonedB.getTile(castleMove);&#13;&#10;&#9;&#9;&#9;&#9;&#9;castleMoveTile.setPiece(cloneKing);&#13;&#10;&#9;&#9;&#9;&#9;&#9;if (this.isInCheck(clonedB, p.color)) {&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;&#9;&#9;}&#13;&#10;&#13;&#10;&#9;&#9;&#9;&#9;&#9;// Add left or right castle move&#13;&#10;&#9;&#9;&#9;&#9;&#9;Coord kingMove = p.curTile.coord.clone();&#13;&#10;&#9;&#9;&#9;&#9;&#9;kingMove.x += left ? -2 : 2;&#13;&#10;&#9;&#9;&#9;&#9;&#9;Coord rookMove = p.curTile.coord.clone();&#13;&#10;&#9;&#9;&#9;&#9;&#9;rookMove.x += left ? -1 : 1;&#13;&#10;&#9;&#9;&#9;&#9;&#9;Move mo = p.createMove(kingMove, false);&#13;&#10;&#9;&#9;&#9;&#9;&#9;mo.addSubMove(new Pair&lt;Piece, Coord&gt;(rook, rookMove));&#13;&#10;&#9;&#9;&#9;&#9;&#9;ret.add(mo);&#13;&#10;&#9;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;} while (left);&#13;&#10;&#9;&#9;}&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public void addRookMoves(ArrayList&lt;Move&gt; ret, int direction, Coord c,&#13;&#10;&#9;&#9;&#9;Piece p, Board b) {&#13;&#10;&#9;&#9;Tile t;&#13;&#10;&#9;&#9;// loop through the vertical, going up&#13;&#10;&#9;&#9;int offset;&#13;&#10;&#9;&#9;for (offset = 1;; offset++) {&#13;&#10;&#9;&#9;&#9;t = b.getTile(c.x, c.y + offset);&#13;&#10;&#9;&#9;&#9;if (t == null) {&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;ret.add(p.createMove(t.coord.clone()));&#13;&#10;&#9;&#9;&#9;if (t.curPiece != null) {&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;}&#13;&#10;&#13;&#10;&#9;&#9;// loop through the vertical, going down&#13;&#10;&#9;&#9;for (offset = -1;; offset--) {&#13;&#10;&#9;&#9;&#9;t = b.getTile(c.x, c.y + offset);&#13;&#10;&#9;&#9;&#9;if (t == null) {&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;ret.add(p.createMove(t.coord.clone()));&#13;&#10;&#9;&#9;&#9;if (t.curPiece != null) {&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;}&#13;&#10;&#13;&#10;&#9;&#9;// loop through the horizontal, going left&#13;&#10;&#9;&#9;for (offset = 1;; offset++) {&#13;&#10;&#9;&#9;&#9;t = b.getTile(c.x + offset, c.y);&#13;&#10;&#9;&#9;&#9;if (t == null) {&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;ret.add(p.createMove(t.coord.clone()));&#13;&#10;&#9;&#9;&#9;if (t.curPiece != null) {&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;}&#13;&#10;&#13;&#10;&#9;&#9;// loop through the horizontal, going right&#13;&#10;&#9;&#9;for (offset = -1;; offset--) {&#13;&#10;&#9;&#9;&#9;t = b.getTile(c.x + offset, c.y);&#13;&#10;&#9;&#9;&#9;if (t == null) {&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;ret.add(p.createMove(t.coord.clone()));&#13;&#10;&#9;&#9;&#9;if (t.curPiece != null) {&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;}&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public void addBishopMoves(ArrayList&lt;Move&gt; ret, int direction, Coord c,&#13;&#10;&#9;&#9;&#9;Piece p, Board b) {&#13;&#10;&#9;&#9;Tile t;&#13;&#10;&#9;&#9;// loop through the diagonal, going up and left&#13;&#10;&#9;&#9;int offset;&#13;&#10;&#9;&#9;for (offset = 1;; offset++) {&#13;&#10;&#9;&#9;&#9;t = b.getTile(c.x + offset, c.y + offset);&#13;&#10;&#9;&#9;&#9;if (t == null) {&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;ret.add(p.createMove(t.coord.clone()));&#13;&#10;&#9;&#9;&#9;if (t.curPiece != null) {&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;// loop through the diagonal, going up and right&#13;&#10;&#9;&#9;for (offset = 1;; offset++) {&#13;&#10;&#9;&#9;&#9;t = b.getTile(c.x - offset, c.y - offset);&#13;&#10;&#9;&#9;&#9;if (t == null) {&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;ret.add(p.createMove(t.coord.clone()));&#13;&#10;&#9;&#9;&#9;if (t.curPiece != null) {&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;// loop through the diagonal, going down and left&#13;&#10;&#9;&#9;for (offset = 1;; offset++) {&#13;&#10;&#9;&#9;&#9;t = b.getTile(c.x + offset, c.y - offset);&#13;&#10;&#9;&#9;&#9;if (t == null) {&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;ret.add(p.createMove(t.coord.clone()));&#13;&#10;&#9;&#9;&#9;if (t.curPiece != null) {&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;// loop through the diagonal, going down and right&#13;&#10;&#9;&#9;for (offset = 1;; offset++) {&#13;&#10;&#9;&#9;&#9;t = b.getTile(c.x - offset, c.y + offset);&#13;&#10;&#9;&#9;&#9;if (t == null) {&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;ret.add(p.createMove(t.coord.clone()));&#13;&#10;&#9;&#9;&#9;if (t.curPiece != null) {&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;}&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public void addQueenMoves(ArrayList&lt;Move&gt; ret, int direction, Coord c,&#13;&#10;&#9;&#9;&#9;Piece p, Board b) {&#13;&#10;&#9;&#9;Tile t;&#13;&#10;&#9;&#9;// loop through the diagonal, going up and left&#13;&#10;&#9;&#9;int offset;&#13;&#10;&#9;&#9;for (offset = 1;; offset++) {&#13;&#10;&#9;&#9;&#9;t = b.getTile(c.x + offset, c.y + offset);&#13;&#10;&#9;&#9;&#9;if (t == null) {&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;ret.add(p.createMove(t.coord.clone()));&#13;&#10;&#9;&#9;&#9;if (t.curPiece != null) {&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;// loop through the diagonal, going up and right&#13;&#10;&#9;&#9;for (offset = 1;; offset++) {&#13;&#10;&#9;&#9;&#9;t = b.getTile(c.x - offset, c.y - offset);&#13;&#10;&#9;&#9;&#9;if (t == null) {&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;ret.add(p.createMove(t.coord.clone()));&#13;&#10;&#9;&#9;&#9;if (t.curPiece != null) {&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;// loop through the diagonal, going down and left&#13;&#10;&#9;&#9;for (offset = 1;; offset++) {&#13;&#10;&#9;&#9;&#9;t = b.getTile(c.x + offset, c.y - offset);&#13;&#10;&#9;&#9;&#9;if (t == null) {&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;ret.add(p.createMove(t.coord.clone()));&#13;&#10;&#9;&#9;&#9;if (t.curPiece != null) {&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;// loop through the diagonal, going down and right&#13;&#10;&#9;&#9;for (offset = 1;; offset++) {&#13;&#10;&#9;&#9;&#9;t = b.getTile(c.x - offset, c.y + offset);&#13;&#10;&#9;&#9;&#9;if (t == null) {&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;ret.add(p.createMove(t.coord.clone()));&#13;&#10;&#9;&#9;&#9;if (t.curPiece != null) {&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;}&#13;&#10;&#13;&#10;&#9;&#9;// loop through the vertical, going up&#13;&#10;&#9;&#9;for (offset = 1;; offset++) {&#13;&#10;&#9;&#9;&#9;t = b.getTile(c.x, c.y + offset);&#13;&#10;&#9;&#9;&#9;if (t == null) {&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;ret.add(p.createMove(t.coord.clone()));&#13;&#10;&#9;&#9;&#9;if (t.curPiece != null) {&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;}&#13;&#10;&#13;&#10;&#9;&#9;// loop through the vertical, going down&#13;&#10;&#9;&#9;for (offset = -1;; offset--) {&#13;&#10;&#9;&#9;&#9;t = b.getTile(c.x, c.y + offset);&#13;&#10;&#9;&#9;&#9;if (t == null) {&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;ret.add(p.createMove(t.coord.clone()));&#13;&#10;&#9;&#9;&#9;if (t.curPiece != null) {&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;}&#13;&#10;&#13;&#10;&#9;&#9;// loop through the horizontal, going left&#13;&#10;&#9;&#9;for (offset = 1;; offset++) {&#13;&#10;&#9;&#9;&#9;t = b.getTile(c.x + offset, c.y);&#13;&#10;&#9;&#9;&#9;if (t == null) {&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;ret.add(p.createMove(t.coord.clone()));&#13;&#10;&#9;&#9;&#9;if (t.curPiece != null) {&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;}&#13;&#10;&#13;&#10;&#9;&#9;// loop through the horizontal, going right&#13;&#10;&#9;&#9;for (offset = -1;; offset--) {&#13;&#10;&#9;&#9;&#9;t = b.getTile(c.x + offset, c.y);&#13;&#10;&#9;&#9;&#9;if (t == null) {&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;ret.add(p.createMove(t.coord.clone()));&#13;&#10;&#9;&#9;&#9;if (t.curPiece != null) {&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;}&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public void addKnightMoves(ArrayList&lt;Move&gt; ret, int direction, Coord c,&#13;&#10;&#9;&#9;&#9;Piece p, Board b) {&#13;&#10;&#9;&#9;Tile t;&#13;&#10;&#9;&#9;t = b.getTile(c.x + 1, c.y + 2);&#13;&#10;&#9;&#9;if (t != null) {&#13;&#10;&#9;&#9;&#9;ret.add(p.createMove(t.coord.clone()));&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;t = b.getTile(c.x + 1, c.y - 2);&#13;&#10;&#9;&#9;if (t != null) {&#13;&#10;&#9;&#9;&#9;ret.add(p.createMove(t.coord.clone()));&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;t = b.getTile(c.x - 1, c.y + 2);&#13;&#10;&#9;&#9;if (t != null) {&#13;&#10;&#9;&#9;&#9;ret.add(p.createMove(t.coord.clone()));&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;t = b.getTile(c.x - 1, c.y - 2);&#13;&#10;&#9;&#9;if (t != null) {&#13;&#10;&#9;&#9;&#9;ret.add(p.createMove(t.coord.clone()));&#13;&#10;&#9;&#9;}&#13;&#10;&#13;&#10;&#9;&#9;t = b.getTile(c.x + 2, c.y + 1);&#13;&#10;&#9;&#9;if (t != null) {&#13;&#10;&#9;&#9;&#9;ret.add(p.createMove(t.coord.clone()));&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;t = b.getTile(c.x + 2, c.y - 1);&#13;&#10;&#9;&#9;if (t != null) {&#13;&#10;&#9;&#9;&#9;ret.add(p.createMove(t.coord.clone()));&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;t = b.getTile(c.x - 2, c.y + 1);&#13;&#10;&#9;&#9;if (t != null) {&#13;&#10;&#9;&#9;&#9;ret.add(p.createMove(t.coord.clone()));&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;t = b.getTile(c.x - 2, c.y - 1);&#13;&#10;&#9;&#9;if (t != null) {&#13;&#10;&#9;&#9;&#9;ret.add(p.createMove(t.coord.clone()));&#13;&#10;&#9;&#9;}&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public ArrayList&lt;Pair&lt;Character,PieceName&gt;&gt; promotionChoices(View v) {&#13;&#10;&#9;&#9;ArrayList&lt;Pair&lt;Character,PieceName&gt;&gt; pieceChoices = new ArrayList&lt;Pair&lt;Character,PieceName&gt;&gt;();&#13;&#10;&#9;&#9;pieceChoices.add(new Pair&lt;Character,PieceName&gt;('r', PieceName.ROOK));&#13;&#10;&#9;&#9;pieceChoices.add(new Pair&lt;Character,PieceName&gt;('b', PieceName.BISHOP));&#13;&#10;&#9;&#9;pieceChoices.add(new Pair&lt;Character,PieceName&gt;('n', PieceName.KNIGHT));&#13;&#10;&#9;&#9;pieceChoices.add(new Pair&lt;Character,PieceName&gt;('q', PieceName.QUEEN));&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;if (v != null) {&#13;&#10;&#9;&#9;&#9;v.displayMsg(&quot;Promotion choices are:&quot;);&#13;&#10;&#9;&#9;&#9;v.displayMsg(&quot;r - rook&quot;);&#13;&#10;&#9;&#9;&#9;v.displayMsg(&quot;b - bishop&quot;);&#13;&#10;&#9;&#9;&#9;v.displayMsg(&quot;n - knight&quot;);&#13;&#10;&#9;&#9;&#9;v.displayMsg(&quot;q - queen&quot;);&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;return pieceChoices;&#13;&#10;&#9;}&#13;&#10;}&#13;&#10;" Filename="ClassicRules.java" Intrnl_Id="1"/>
 </SrcFileList>
@@ -36,13 +36,13 @@
 <HierarchyLvlType EnglishName="default package" IntrnlName="default package" Intrnl_Id="8"/>
 </HierarchyLvlTypeList>
 <MASTRoot>
-<HierarchyLvl HierarchyLvlId="1136" HierarchyLvlTypeId="8" Intrnl_Id="9" Name="default package">
+<HierarchyLvl HierarchyLvlId="1642" HierarchyLvlTypeId="8" Intrnl_Id="9" Name="default package">
 <Header/>
 <LocList/>
-<HierarchyLvl HierarchyLvlId="1135" HierarchyLvlTypeId="5" Intrnl_Id="10" Name="rules">
+<HierarchyLvl HierarchyLvlId="1641" HierarchyLvlTypeId="5" Intrnl_Id="10" Name="rules">
 <Header/>
 <LocList/>
-<HierarchyLvl HierarchyLvlId="1134" HierarchyLvlTypeId="7" Intrnl_Id="11" Name="ClassicRules">
+<HierarchyLvl HierarchyLvlId="1640" HierarchyLvlTypeId="7" Intrnl_Id="11" Name="ClassicRules">
 <Header>
 <Loc EndOffset="398" SrcFileId="1" StartOffset="359"/>
 </Header>
@@ -59,7 +59,7 @@
 </LocList>
 </BasicStmnt>
 </StmntSeq>
-<HierarchyLvl HierarchyLvlId="1115" HierarchyLvlTypeId="6" Intrnl_Id="14" Name="ClassicRules">
+<HierarchyLvl HierarchyLvlId="1621" HierarchyLvlTypeId="6" Intrnl_Id="14" Name="ClassicRules">
 <Header>
 <Loc EndOffset="486" SrcFileId="1" StartOffset="465"/>
 </Header>
@@ -67,7 +67,7 @@
 <Loc EndOffset="494" SrcFileId="1" StartOffset="465"/>
 </LocList>
 </HierarchyLvl>
-<HierarchyLvl HierarchyLvlId="1116" HierarchyLvlTypeId="6" Intrnl_Id="15" Name="createBoard">
+<HierarchyLvl HierarchyLvlId="1622" HierarchyLvlTypeId="6" Intrnl_Id="15" Name="createBoard">
 <Header>
 <Loc EndOffset="525" SrcFileId="1" StartOffset="499"/>
 </Header>
@@ -85,7 +85,7 @@
 </BasicStmnt>
 </StmntSeq>
 </HierarchyLvl>
-<HierarchyLvl HierarchyLvlId="1117" HierarchyLvlTypeId="6" Intrnl_Id="18" Name="checkGameOver">
+<HierarchyLvl HierarchyLvlId="1623" HierarchyLvlTypeId="6" Intrnl_Id="18" Name="checkGameOver">
 <Header>
 <Loc EndOffset="605" SrcFileId="1" StartOffset="566"/>
 </Header>
@@ -224,7 +224,7 @@
 </BasicStmnt>
 </StmntSeq>
 </HierarchyLvl>
-<HierarchyLvl HierarchyLvlId="1118" HierarchyLvlTypeId="6" Intrnl_Id="45" Name="isDraw">
+<HierarchyLvl HierarchyLvlId="1624" HierarchyLvlTypeId="6" Intrnl_Id="45" Name="isDraw">
 <Header>
 <Loc EndOffset="870" SrcFileId="1" StartOffset="840"/>
 </Header>
@@ -242,7 +242,7 @@
 </BasicStmnt>
 </StmntSeq>
 </HierarchyLvl>
-<HierarchyLvl HierarchyLvlId="1119" HierarchyLvlTypeId="6" Intrnl_Id="48" Name="loopOverAllMoves">
+<HierarchyLvl HierarchyLvlId="1625" HierarchyLvlTypeId="6" Intrnl_Id="48" Name="loopOverAllMoves">
 <Header>
 <Loc EndOffset="1055" SrcFileId="1" StartOffset="1006"/>
 </Header>
@@ -432,7 +432,7 @@
 </BasicStmnt>
 </StmntSeq>
 </HierarchyLvl>
-<HierarchyLvl HierarchyLvlId="1120" HierarchyLvlTypeId="6" Intrnl_Id="86" Name="isInStaleMate">
+<HierarchyLvl HierarchyLvlId="1626" HierarchyLvlTypeId="6" Intrnl_Id="86" Name="isInStaleMate">
 <Header>
 <Loc EndOffset="1897" SrcFileId="1" StartOffset="1851"/>
 </Header>
@@ -450,7 +450,7 @@
 </BasicStmnt>
 </StmntSeq>
 </HierarchyLvl>
-<HierarchyLvl HierarchyLvlId="1121" HierarchyLvlTypeId="6" Intrnl_Id="89" Name="isInCheckmate">
+<HierarchyLvl HierarchyLvlId="1627" HierarchyLvlTypeId="6" Intrnl_Id="89" Name="isInCheckmate">
 <Header>
 <Loc EndOffset="1988" SrcFileId="1" StartOffset="1942"/>
 </Header>
@@ -505,7 +505,7 @@
 </BasicStmnt>
 </StmntSeq>
 </HierarchyLvl>
-<HierarchyLvl HierarchyLvlId="1122" HierarchyLvlTypeId="6" Intrnl_Id="100" Name="isInCheck">
+<HierarchyLvl HierarchyLvlId="1628" HierarchyLvlTypeId="6" Intrnl_Id="100" Name="isInCheck">
 <Header>
 <Loc EndOffset="2180" SrcFileId="1" StartOffset="2138"/>
 </Header>
@@ -803,7 +803,7 @@
 </BasicStmnt>
 </StmntSeq>
 </HierarchyLvl>
-<HierarchyLvl HierarchyLvlId="1123" HierarchyLvlTypeId="6" Intrnl_Id="161" Name="findCastleRook">
+<HierarchyLvl HierarchyLvlId="1629" HierarchyLvlTypeId="6" Intrnl_Id="161" Name="findCastleRook">
 <Header>
 <Loc EndOffset="3266" SrcFileId="1" StartOffset="3203"/>
 </Header>
@@ -991,7 +991,7 @@
 </BasicStmnt>
 </StmntSeq>
 </HierarchyLvl>
-<HierarchyLvl HierarchyLvlId="1124" HierarchyLvlTypeId="6" Intrnl_Id="198" Name="movePiece">
+<HierarchyLvl HierarchyLvlId="1630" HierarchyLvlTypeId="6" Intrnl_Id="198" Name="movePiece">
 <Header>
 <Loc EndOffset="3697" SrcFileId="1" StartOffset="3609"/>
 </Header>
@@ -1577,7 +1577,7 @@
 </BasicStmnt>
 </StmntSeq>
 </HierarchyLvl>
-<HierarchyLvl HierarchyLvlId="1125" HierarchyLvlTypeId="6" Intrnl_Id="316" Name="checkPromotion">
+<HierarchyLvl HierarchyLvlId="1631" HierarchyLvlTypeId="6" Intrnl_Id="316" Name="checkPromotion">
 <Header>
 <Loc EndOffset="5809" SrcFileId="1" StartOffset="5742"/>
 </Header>
@@ -1772,7 +1772,7 @@
 </BasicStmnt>
 </StmntSeq>
 </HierarchyLvl>
-<HierarchyLvl HierarchyLvlId="1126" HierarchyLvlTypeId="6" Intrnl_Id="358" Name="listAvailableMoves">
+<HierarchyLvl HierarchyLvlId="1632" HierarchyLvlTypeId="6" Intrnl_Id="358" Name="listAvailableMoves">
 <Header>
 <Loc EndOffset="6245" SrcFileId="1" StartOffset="6186"/>
 </Header>
@@ -2147,7 +2147,7 @@
 </BasicStmnt>
 </StmntSeq>
 </HierarchyLvl>
-<HierarchyLvl HierarchyLvlId="1127" HierarchyLvlTypeId="6" Intrnl_Id="431" Name="addPawnMoves">
+<HierarchyLvl HierarchyLvlId="1633" HierarchyLvlTypeId="6" Intrnl_Id="431" Name="addPawnMoves">
 <Header>
 <Loc EndOffset="7367" SrcFileId="1" StartOffset="7276"/>
 </Header>
@@ -2717,7 +2717,7 @@
 </CondStmnt>
 </StmntSeq>
 </HierarchyLvl>
-<HierarchyLvl HierarchyLvlId="1128" HierarchyLvlTypeId="6" Intrnl_Id="549" Name="addKingMoves">
+<HierarchyLvl HierarchyLvlId="1634" HierarchyLvlTypeId="6" Intrnl_Id="549" Name="addKingMoves">
 <Header>
 <Loc EndOffset="9025" SrcFileId="1" StartOffset="8934"/>
 </Header>
@@ -3219,7 +3219,7 @@
 </CondStmnt>
 </StmntSeq>
 </HierarchyLvl>
-<HierarchyLvl HierarchyLvlId="1129" HierarchyLvlTypeId="6" Intrnl_Id="651" Name="addRookMoves">
+<HierarchyLvl HierarchyLvlId="1635" HierarchyLvlTypeId="6" Intrnl_Id="651" Name="addRookMoves">
 <Header>
 <Loc EndOffset="10764" SrcFileId="1" StartOffset="10673"/>
 </Header>
@@ -3619,7 +3619,7 @@
 </LoopStmnt>
 </StmntSeq>
 </HierarchyLvl>
-<HierarchyLvl HierarchyLvlId="1130" HierarchyLvlTypeId="6" Intrnl_Id="733" Name="addBishopMoves">
+<HierarchyLvl HierarchyLvlId="1636" HierarchyLvlTypeId="6" Intrnl_Id="733" Name="addBishopMoves">
 <Header>
 <Loc EndOffset="11909" SrcFileId="1" StartOffset="11816"/>
 </Header>
@@ -4019,7 +4019,7 @@
 </LoopStmnt>
 </StmntSeq>
 </HierarchyLvl>
-<HierarchyLvl HierarchyLvlId="1131" HierarchyLvlTypeId="6" Intrnl_Id="815" Name="addQueenMoves">
+<HierarchyLvl HierarchyLvlId="1637" HierarchyLvlTypeId="6" Intrnl_Id="815" Name="addQueenMoves">
 <Header>
 <Loc EndOffset="13112" SrcFileId="1" StartOffset="13020"/>
 </Header>
@@ -4807,7 +4807,7 @@
 </LoopStmnt>
 </StmntSeq>
 </HierarchyLvl>
-<HierarchyLvl HierarchyLvlId="1132" HierarchyLvlTypeId="6" Intrnl_Id="977" Name="addKnightMoves">
+<HierarchyLvl HierarchyLvlId="1638" HierarchyLvlTypeId="6" Intrnl_Id="977" Name="addKnightMoves">
 <Header>
 <Loc EndOffset="15333" SrcFileId="1" StartOffset="15240"/>
 </Header>
@@ -5163,7 +5163,7 @@
 </CondStmnt>
 </StmntSeq>
 </HierarchyLvl>
-<HierarchyLvl HierarchyLvlId="1133" HierarchyLvlTypeId="6" Intrnl_Id="1051" Name="promotionChoices">
+<HierarchyLvl HierarchyLvlId="1639" HierarchyLvlTypeId="6" Intrnl_Id="1051" Name="promotionChoices">
 <Header>
 <Loc EndOffset="16265" SrcFileId="1" StartOffset="16197"/>
 </Header>

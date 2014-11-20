@@ -36,11 +36,27 @@ public class ListMoves extends TestCase {
 		 Assert.assertFalse(piece.canMoveTo(r, b, Arrays.asList(new Coord(1,2))));
 	 }
 	 
+	 public void testRook2() {
+		 Piece piece = b.getTile(7, 0).curPiece;
+		 Assert.assertEquals(piece.name, PieceName.ROOK);
+		 Assert.assertFalse(piece.canMoveTo(r, b, Arrays.asList(new Coord(1,2))));
+	 }
+	 
 	 public void testRookMidGame() {
 		 Piece piece = b.getTile(0, 0).curPiece;
 		 b.getTile(3, 3).setPiece(piece);piece.hasMoved = true;
 		 Assert.assertEquals(piece.name, PieceName.ROOK);
 		 Assert.assertTrue(piece.canMoveTo(r, b, Arrays.asList(new Coord(3,4),new Coord(3,2),new Coord(4,3),new Coord(2,3))));
+		 Assert.assertFalse(piece.canMoveTo(r, b, Arrays.asList(new Coord(4,4))));
+	 }
+	 
+	 public void testRookMidGame2() {
+		 Piece piece = b.getTile(0, 0).curPiece;
+		 b.getTile(0, 7).setPiece(null);
+		 b.getTile(0, 6).setPiece(null);
+		 b.getTile(0, 3).setPiece(piece);piece.hasMoved = true;
+		 Assert.assertEquals(piece.name, PieceName.ROOK);
+		 //Assert.assertTrue(piece.canMoveTo(r, b, Arrays.asList(new Coord(3,4),new Coord(3,2),new Coord(4,3),new Coord(2,3))));
 		 Assert.assertFalse(piece.canMoveTo(r, b, Arrays.asList(new Coord(4,4))));
 	 }
 	 
@@ -65,6 +81,20 @@ public class ListMoves extends TestCase {
 		 Assert.assertFalse(piece.canMoveTo(r, b, Arrays.asList(new Coord(3,1))));
 	 }
 	 
+	 public void testBishupMid2() {
+		 Piece piece = b.getTile(2, 0).curPiece;
+		 b.getTile(7, 3).setPiece(piece);piece.hasMoved = true;
+		 Assert.assertEquals(piece.name, PieceName.BISHOP);
+		 Assert.assertFalse(piece.canMoveTo(r, b, Arrays.asList(new Coord(3,1))));
+	 }
+	 
+	 public void testBishupMid3() {
+		 Piece piece = b.getTile(2, 0).curPiece;
+		 b.getTile(0, 3).setPiece(piece);piece.hasMoved = true;
+		 Assert.assertEquals(piece.name, PieceName.BISHOP);
+		 Assert.assertFalse(piece.canMoveTo(r, b, Arrays.asList(new Coord(3,1))));
+	 }
+	 
 	 public void testBishupMidGame() {
 		 Piece piece = b.getTile(2, 0).curPiece;
 		 b.getTile(3, 3).setPiece(piece);piece.hasMoved = true;
@@ -84,6 +114,24 @@ public class ListMoves extends TestCase {
 		 b.getTile(3, 3).setPiece(piece);piece.hasMoved = true;
 		 Assert.assertEquals(piece.name, PieceName.QUEEN);
 		 Assert.assertTrue(piece.canMoveTo(r, b, Arrays.asList(new Coord(3,4),new Coord(3,2),new Coord(4,3),new Coord(2,3),new Coord(4,4),new Coord(2,2),new Coord(2,4),new Coord(4,2))));
+		 Assert.assertFalse(piece.canMoveTo(r, b, Arrays.asList(new Coord(3,3))));
+	 }
+	 
+	 public void testQueenMidGame2() {
+		 Piece piece = b.getTile(3, 0).curPiece;
+		 b.getTile(7, 4).setPiece(piece);piece.hasMoved = true;
+		 Assert.assertEquals(piece.name, PieceName.QUEEN);
+		 Assert.assertTrue(piece.canMoveTo(r, b, Arrays.asList(new Coord(7,5))));
+		 Assert.assertFalse(piece.canMoveTo(r, b, Arrays.asList(new Coord(3,3))));
+	 }
+	 
+	 public void testQueenMidGame3() {
+		 Piece piece = b.getTile(3, 0).curPiece;
+		 b.getTile(0, 7).setPiece(null);
+		 b.getTile(0, 6).setPiece(null);
+		 b.getTile(0, 4).setPiece(piece);piece.hasMoved = true;
+		 Assert.assertEquals(piece.name, PieceName.QUEEN);
+		 Assert.assertTrue(piece.canMoveTo(r, b, Arrays.asList(new Coord(1,4))));
 		 Assert.assertFalse(piece.canMoveTo(r, b, Arrays.asList(new Coord(3,3))));
 	 }
 	 
